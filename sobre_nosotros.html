@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRFit Gym - Sobre Nosotros</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+body{
+background:#0b0b0b;
+color:white;
+}
+/* ===== HEADER IGUAL AL INICIO ===== */
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:80px;
+padding:0 50px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:rgba(0,0,0,.6);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+.logo{
+display:flex;
+align-items:center;
+gap:15px;
+}
+.logo img{
+height:150px;
+transform:translateY(18px);
+}
+nav ul{
+list-style:none;
+display:flex;
+gap:30px;
+}
+nav a{
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+nav a:hover{
+color:#1db954;
+}
+/* ===== HERO ===== */
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+background:
+linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.9)),
+url('ss.sobreNs.jpg') center/cover no-repeat;
+}
+.hero h1{
+font-size:3rem;
+}
+/* ===== SECCIONES ===== */
+section{
+padding:120px 50px;
+max-width:1300px;
+margin:auto;
+}
+/* ===== SOBRE ===== */
+.sobre-main{
+display:flex;
+flex-direction:column;
+gap:40px;
+}
+.sobre-card{
+background:#161616;
+padding:40px;
+border-radius:20px;
+}
+.sobre-card h2{
+color:#1DB954;
+margin-bottom:20px;
+}
+.sobre-card p{
+color:#bbb;
+line-height:1.6;
+}
+/* GRID */
+.info-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+}
+.info-box{
+background:#161616;
+padding:30px;
+border-radius:20px;
+transition:.3s;
+text-align:center;
+}
+.info-box:hover{
+transform:translateY(-10px);
+box-shadow:0 10px 30px rgba(0,0,0,.6);
+}
+.info-box h3{
+color:#1DB954;
+margin-bottom:10px;
+}
+/* ===== LIBRO ===== */
+.sobre{
+padding:100px 50px;
+}
+.contenedor{
+display:flex;
+align-items:center;
+gap:60px;
+flex-wrap:wrap;
+}
+.libro img{
+width:450px;
+border-radius:15px;
+transition:.5s;
+box-shadow:0 20px 60px rgba(0,0,0,0.8);
+}
+.libro img:hover{
+transform:scale(1.05);
+}
+.texto{
+max-width:500px;
+}
+.texto h2{
+color:#1DB954;
+margin-bottom:20px;
+}
+.texto p{
+color:#bbb;
+}
+/* BOTÓN */
+.btn{
+padding:12px 25px;
+background:#1DB954;
+border-radius:30px;
+text-decoration:none;
+color:black;
+display:inline-block;
+margin-top:15px;
+font-weight:bold;
+}
+.btn:hover{
+box-shadow:0 0 20px #1DB954;
+}
+/* ===== FOOTER ===== */
+footer{
+padding:30px;
+text-align:center;
+background:#121212;
+color:#888;
+}
+/* ===== RESPONSIVE PERFECTO ===== */
+@media(max-width:1024px){
+header{
+padding:0 30px;
+}
+section{
+padding:100px 30px;
+}
+.libro img{
+width:350px;
+}
+}
+@media(max-width:768px){
+/* HEADER */
+header{
+height:70px;
+padding:0 20px;
+}
+.logo img{
+height:90px;
+transform:translateY(10px);
+}
+.logo strong{
+font-size:14px;
+}
+/* NAV RESPONSIVE */
+nav{
+position:fixed;
+top:70px;
+left:-100%;
+width:100%;
+height:100vh;
+background:#0b0b0b;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:.4s;
+z-index:999;
+}
+nav.active{
+left:0;
+}
+nav ul{
+flex-direction:column;
+gap:30px;
+text-align:center;
+}
+nav a{
+font-size:20px;
+}
+/* BOTÓN HAMBURGUESA */
+.menu-toggle{
+display:block;
+font-size:28px;
+cursor:pointer;
+}
+/* HERO */
+.hero{
+height:80vh;
+padding:0 20px;
+}
+.hero h1{
+font-size:2rem;
+}
+/* SECCIONES */
+section{
+padding:80px 20px;
+}
+/* SOBRE */
+.sobre-card{
+padding:25px;
+}
+.sobre-card h2{
+font-size:1.5rem;
+}
+/* GRID */
+.info-grid{
+grid-template-columns:1fr;
+}
+/* LIBRO */
+.contenedor{
+flex-direction:column;
+text-align:center;
+gap:30px;
+}
+.libro img{
+width:100%;
+max-width:300px;
+}
+.texto{
+max-width:100%;
+}
+.texto h2{
+font-size:1.5rem;
+}
+.texto p{
+font-size:14px;
+}
+/* BOTÓN */
+.btn{
+width:100%;
+max-width:250px;
+}
+/* FOOTER */
+footer{
+font-size:13px;
+padding:20px;
+}
+}
+/* ===== EXTRA PEQUEÑOS ===== */
+@media(max-width:480px){
+.hero h1{
+font-size:1.6rem;
+}
+.logo img{
+height:75px;
+}
+nav a{
+font-size:18px;
+}
+.sobre-card{
+padding:20px;
+}
+.texto p{
+font-size:13px;
+}
+}
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<header>
+<div class="logo">
+<img src="logoCRfit.png">
+<strong>CRFit Gym</strong>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+</div>
+<nav>
+<ul>
+<li><a href="pagina-inicio.html">Inicio</a></li>
+<li><a href="rutinas.html">Rutinas</a></li>
+<li><a href="productos.html">Tienda</a></li>
+<li><a href="catalogo.html">Productos</a></li>
+<li><a href="sobre_nosotros.html">Sobre nosotros</a></li>
+</ul>
+</nav>
+</header>
+<!-- HERO -->
+<div class="hero">
+<h1>Sobre Nosotros</h1>
+</div>
+<!-- SOBRE -->
+<section class="sobre-main">
+<div class="sobre-card">
+<h2>¿Quiénes somos?</h2>
+<p>
+Aquí puedes escribir MUCHA más información. Este espacio es más amplio,
+más limpio y más profesional. Puedes contar toda la historia del gym,
+tu misión, visión, objetivos, etc.
+</p>
+</div>
+<div class="info-grid">
+<div class="info-box">
+<h3>Misión</h3>
+<p>Transformar vidas a través del fitness.</p>
+</div>
+<div class="info-box">
+<h3>Visión</h3>
+<p>Ser el mejor gimnasio de la región.</p>
+</div>
+<div class="info-box">
+<h3>Valores</h3>
+<p>Disciplina, constancia y mentalidad fuerte.</p>
+</div>
+</div>
+</section>
+<!-- LIBRO -->
+<section class="sobre">
+<div class="contenedor">
+<div class="libro">
+<img src="ss.libro.png">
+</div>
+<div class="texto">
+<h2>Nuestro Negocio-CRfit Gym</h2>
+<p>
+CRFit Gym nació con la visión de crear un espacio donde cualquier persona
+pueda mejorar su estilo de vida. Para mejorar sus rutinas en casa o en el gym, y mejorar su salud con los productos
+que vendemos en nuestra tienda, queremos que tengan todo lo posible para que puedan mejorar su rutina diaria.
+Por eso el libro de CRfit Gym les muestras mucho mas de nuestro negocio en este sitio web 
+</p>
+<a href="rutinas.html" class="btn">Proximamente</a>
+</div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer>
+<p>© 2026 CRFit Gym-Sebatian Salazar</p>
+</footer>
+<script>
+function toggleMenu(){
+document.querySelector("nav").classList.toggle("active");
+}
+</script>
+</body>
+</html>

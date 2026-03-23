@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Música | CRFit</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif;}
+body{background:#0b0b0b;color:white;}
+/* SECCIONES */
+section{min-height:100vh;padding:80px 8%;display:none;}
+section.active{display:block;}
+/* BOTONES */
+button{
+padding:12px 28px;
+border:none;
+border-radius:30px;
+background:#1db954;
+color:black;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+button:hover{
+transform:scale(1.05);
+box-shadow:0 10px 30px rgba(29,185,84,.5);
+}
+/* HOME */
+.home{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:50px;
+align-items:center;
+}
+.home img{
+width:100%;
+height:420px;
+object-fit:cover;
+border-radius:20px;
+}
+.home h1{font-size:3rem;}
+.home p{margin:20px 0;opacity:.8;}
+/* TOP */
+.top-bar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+/* CARRUSEL */
+.carousel{overflow:hidden;max-width:1200px;margin:auto;}
+.carousel-track{
+display:flex;
+gap:25px;
+transition:.6s;
+}
+.artist-card{
+min-width:220px;
+height:280px;
+border-radius:20px;
+overflow:hidden;
+position:relative;
+cursor:pointer;
+transition:.3s;
+}
+.artist-card:hover{transform:scale(1.05);}
+.artist-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:brightness(.7);
+}
+.artist-name{
+position:absolute;
+bottom:15px;
+left:15px;
+font-weight:bold;
+}
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+margin-top:20px;
+}
+.artist{
+
+  height:280px;
+
+  border-radius:20px;
+
+  overflow:hidden;
+
+  position:relative;
+
+  cursor:pointer;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:flex-end;
+
+}
+
+.artist img{
+
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+
+  height:100%;
+
+  object-fit:cover;
+
+  z-index:0;
+
+}
+
+.artist span{
+
+  position:relative;
+
+  z-index:2;
+
+  margin-left:15px;
+
+  margin-bottom:10px;
+
+  font-weight:bold;
+
+}
+
+.btn-listen{
+
+  position:relative;
+
+  z-index:2;
+
+  margin:0 15px 15px 15px;
+
+  padding:8px;
+
+  text-align:center;
+  background:#1db954;
+  color:black;
+  border-radius:20px;
+  text-decoration:none;
+  font-weight:bold;
+  transition:.3s;
+
+}
+.btn-listen:hover{
+
+  transform:scale(1.05);
+
+  box-shadow:0 5px 20px rgba(29,185,84,.5);
+}
+ 
+
+/* ALBUMES PRO */
+.albums{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,220px));
+justify-content:center;
+gap:25px;
+margin-top:20px;
+}
+.album{
+background:#181818;
+padding:15px;
+border-radius:18px;
+position:relative;
+transition:.3s;
+}
+.album:hover{
+transform:translateY(-8px);
+box-shadow:0 15px 40px rgba(0,0,0,.8);
+}
+.album img{
+width:100%;
+height:160px;
+object-fit:cover;
+border-radius:12px;
+margin-bottom:10px;
+}
+.album h3{
+font-size:14px;
+margin-bottom:10px;
+}
+/* PLAY BTN */
+.play-btn{
+position:absolute;
+bottom:15px;
+right:15px;
+background:#1db954;
+width:45px;
+height:45px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+cursor:pointer;
+opacity:0;
+transition:.3s;
+}
+.album:hover .play-btn{opacity:1;}
+/* CANCIONES */
+.song{
+display:flex;
+justify-content:space-between;
+font-size:13px;
+margin:6px 0;
+background:#1d1d1d;
+padding:6px;
+border-radius:8px;
+}
+.song a{
+color:#1db954;
+text-decoration:none;}
+
+ 
+
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.home{grid-template-columns:1fr;text-align:center;}
+}
+</style>
+</head>
+<body>
+<!-- HOME -->
+<section id="home" class="active">
+<div class="home">
+<div>
+<h1>🎧 Tu música. Tu flow.</h1>
+<p>Ritmos pensados para entrenar fuerte y mantener el enfoque.</p>
+<button onclick="irMusica()">Entrar</button>
+</div>
+<img src="musica.png">
+</div>
+</section>
+<!-- MUSIC -->
+<section id="music">
+<div class="top-bar">
+<h2>🎧 Música para entrenar</h2>
+<button onclick="volverHome()">Inicio</button>
+</div>
+<h2>🔥 Artistas en tendencia</h2>
+<div class="carousel">
+<div class="carousel-track" id="carousel">
+<div class="artist-card"><img src="https://i.scdn.co/image/ab6761610000517481f47f44084e0a09b5f0fa13"><div class="artist-name">Bad Bunny</div></div>
+<div class="artist-card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVpiNvdisIKKLyOzb8pQ_-OnepPpAyD_Qruw&s"><div class="artist-name">Omar Courtz</div></div>
+<div class="artist-card"><img src="https://i.scdn.co/image/ab6761610000517455d74c8a0873bb7efae632b9"><div class="artist-name">Roa</div></div>
+<div class="artist-card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeSIdziQtj02C1HQunqOCaVZZo4gwSlTOh1A&s"><div class="artist-name">Yan Block</div></div>
+<div class="artist-card"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSehtn8iRdXVzpq9guyamriPtK-w2s81woz0g&s"><div class="artist-name">Humbe</div></div>
+</div>
+</div>
+<h2 style="margin-top:50px;">🔥 canciones mas escuchadas en el gym</h2>
+<div class="grid">
+<div class="artist">
+<img src="https://national-report.com/wp-content/uploads/2024/02/ntr_artworks-n5xzeh8prjnixyyp-2yjllq-t500x500_7526524824.jpg">
+<span>No me quiero casar</span>
+<a href="https://open.spotify.com" target="_blank" class="btn-listen">
+   ▶ Escuchar
+</a>
+</div>
+<div class="artist">
+<img src="z.musica2.jpg">
+<span>Bokete</span>
+<a href="https://open.spotify.com" target="_blank" class="btn-listen">
+   ▶ Escuchar
+</a>
+</div>
+<div class="artist">
+<img src="z.musica3.jpg">
+<span>Wo oh oh</span>
+<a href="https://open.spotify.com" target="_blank" class="btn-listen">
+   ▶ Escuchar
+</a>
+</div>
+<div class="artist">
+<img src="z.musica4.jpg">
+<span>444</span>
+<a href="https://open.spotify.com" target="_blank" class="btn-listen">
+   ▶ Escuchar
+</a>
+</div>
+<div class="artist">
+<img src="z.musica5.jpg">
+<span>Mvlan</span>
+<a href="https://open.spotify.com" target="_blank" class="btn-listen">
+   ▶ Escuchar
+</a>
+</div>
+<div class="artist">
+<img src="z.musica3.jpg">
+<span>lakenoshi</span>
+<a href="https://open.spotify.com/track/6OoYmAP9oZtBiSomWpDTWP?si=4zSlckIhTnKot9uCe-7XVw" target="_blank" class="btn-listen">
+   ▶ Escuchar
+</a>
+</div>
+<div class="artist">
+<img src="z.musica6.jpg">
+<span>Harry Stamper</span>
+<a href="https://open.spotify.com/track/54oMTaZ94z2bwgQccWfc15?si=P-SoOm9HTLGzY6vGUMP3_g" target="_blank" class="btn-listen">
+   ▶ Escuchar
+</a>
+</div>
+</div>
+
+<h2 style="margin-top:50px;">💿 Mejores álbumes</h2>
+<div class="albums">
+<!-- BAD BUNNY -->
+<div class="album">
+<img src="spotify1.jpg">
+<h3>Un Verano Sin Ti - Bad Bunny</h3>
+<div class="play-btn" onclick="window.open('https://open.spotify.com/album/3RQQmkQEvNCY4prGKE6oc5')">▶</div>
+<div class="song"><span>Moscow Mule</span><a href="https://open.spotify.com/track/6Xom58OOXk2SoU711L2IXO" target="_blank">▶</a></div>
+<div class="song"><span>Después de la Playa</span><a href="https://open.spotify.com/track/1IHWl5LamUGEuP4ozKQSXZ" target="_blank">▶</a></div>
+<div class="song"><span>Me Porto Bonito</span><a href="https://open.spotify.com/track/6Sq7ltF9Qa7SNFBsV5Cogx" target="_blank">▶</a></div>
+<div class="song"><span>Tití Me Preguntó</span><a href="https://open.spotify.com/track/1xK59OXxi2TAAAbmZK0kBL" target="_blank">▶</a></div>
+<div class="song"><span>Aguacero</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+<div class="song"><span>Dos mil 16</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+<div class="song"><span>Un ratito</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+<div class="song"><span>Neverita</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+</div>
+<!-- OMAR -->
+<div class="album">
+<img src="spotify2.jpg">
+<h3>Primera Musa - Omar Courtz</h3>
+<div class="song"><span>Una noti</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+<div class="song"><span>¿Qué vas a hacer hoy?</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+<div class="song"><span>Luces de colores</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+<div class="song"><span>Aloca-T</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+</div>
+<!-- HUMBE -->
+<div class="album">
+<img src="spotify3.png">
+<h3>Dueño del cielo - Humbe</h3>
+<div class="song"><span>Luz de luna</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+<div class="song"><span>50mm</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+<div class="song"><span>Hera</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+<div class="song"><span>Harry Stamper</span><a href="https://open.spotify.com" target="_blank">▶</a></div>
+</div>
+</div>
+</section>
+<script>
+const home=document.getElementById("home");
+const music=document.getElementById("music");
+function irMusica(){
+home.classList.remove("active");
+music.classList.add("active");
+}
+function volverHome(){
+music.classList.remove("active");
+home.classList.add("active");
+}
+/* CARRUSEL AUTO */
+const track=document.getElementById("carousel");
+let index=0;
+setInterval(()=>{
+index++;
+if(index>4) index=0;
+track.style.transform=`translateX(-${index*245}px)`;
+},3000);
+</script>
+</body>
+</html>

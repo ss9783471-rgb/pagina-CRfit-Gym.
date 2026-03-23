@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pecho | CRFit Gym</title>
+<style>
+*{
+ margin:0;
+ padding:0;
+ box-sizing:border-box;
+ font-family:Arial, Helvetica, sans-serif;
+}
+body{
+ background:#0f0f0f;
+ color:#fff;
+}
+/* HEADER */
+header{
+ background:#000;
+ padding:20px 40px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+}
+header a{
+ color:white;
+ text-decoration:none;
+ margin-left:20px;
+ font-weight:bold;
+}
+header a:hover{ color:#1db954; }
+/* HERO */
+.hero{
+ height:420px;
+ background:
+   linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),
+   url("img/pecho-hero.jpg") center/cover no-repeat;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ animation:fadeHero 1.2s ease;
+}
+.hero h1{
+ font-size:3rem;
+ margin-bottom:15px;
+}
+.hero p{
+ max-width:760px;
+ color:#ccc;
+ font-size:1.05rem;
+ line-height:1.6;
+}
+@keyframes fadeHero{
+ from{ opacity:0; transform:translateY(-20px); }
+ to{ opacity:1; transform:translateY(0); }
+}
+/* CONTENEDOR */
+.container{
+ max-width:1100px;
+ margin:auto;
+ padding:60px 20px;
+}
+/* NIVELES */
+.niveles{
+ display:flex;
+ justify-content:center;
+ gap:15px;
+ margin-bottom:50px;
+}
+.niveles button{
+ padding:14px 32px;
+ border-radius:30px;
+ border:none;
+ background:#222;
+ color:white;
+ font-weight:bold;
+ cursor:pointer;
+ transition:.3s;
+}
+.niveles button:hover{
+ transform:scale(1.05);
+}
+.niveles button.active{
+ background:#1db954;
+ color:black;
+}
+/* INFO */
+.info{
+ text-align:center;
+ margin-bottom:50px;
+ animation:fadeUp 1s ease;
+}
+.info h2{
+ margin-bottom:10px;
+}
+.info p{
+ color:#bbb;
+ max-width:800px;
+ margin:auto;
+ line-height:1.6;
+}
+/* EJERCICIOS */
+.ejercicios{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+ gap:35px;
+}
+.ejercicio{
+ background:#1c1c1c;
+ border-radius:18px;
+ overflow:hidden;
+ transition:.4s;
+ animation:fadeUp .9s ease forwards;
+}
+.ejercicio:hover{
+ transform:translateY(-12px);
+ box-shadow:0 20px 35px rgba(0,0,0,.6);
+}
+.ejercicio img{
+ width:100%;
+ height:220px;
+ object-fit:cover;
+}
+.ejercicio .content{
+ padding:25px;
+}
+.ejercicio h3{
+ margin-bottom:8px;
+}
+.ejercicio span{
+ color:#1db954;
+ font-weight:bold;
+ font-size:.9rem;
+}
+.ejercicio p{
+ margin-top:10px;
+ font-size:.95rem;
+ color:#bbb;
+ line-height:1.5;
+}
+/* ANIM */
+@keyframes fadeUp{
+ from{ opacity:0; transform:translateY(40px); }
+ to{ opacity:1; transform:translateY(0); }
+}
+/* FOOTER */
+footer{
+ background:#000;
+ padding:25px;
+ text-align:center;
+ color:#888;
+ margin-top:80px;
+}
+</style>
+</head>
+<body>
+<header>
+<h2>CRFit Gym</h2>
+<nav>
+<a href="pagina-inicio.html">Inicio</a>
+<a href="rutinas.html">Rutinas</a>
+<a href="productos.html">Productos</a>
+</nav>
+</header>
+<section class="hero">
+<div>
+<h1>Rutina de Pecho</h1>
+<p>
+     Entrenamiento enfocado en el desarrollo del pectoral mayor y menor,
+     aumentando fuerza, volumen y definición según tu nivel.
+</p>
+</div>
+</section>
+<main class="container">
+<!-- SELECTOR NIVEL -->
+<div class="niveles">
+<button class="active" onclick="cambiarNivel('principiante')">Principiante</button>
+<button onclick="cambiarNivel('intermedio')">Intermedio</button>
+<button onclick="cambiarNivel('avanzado')">Avanzado</button>
+</div>
+<!-- INFO -->
+<div class="info" id="info"></div>
+<!-- EJERCICIOS -->
+<div class="ejercicios" id="ejercicios"></div>
+</main>
+<footer>
+ © 2026 CRFit Gym · Pecho fuerte y bien definido
+</footer>
+<script>
+const data = {
+ principiante:{
+   info:{
+     titulo:"Nivel Principiante",
+     texto:"Rutina diseñada para aprender la técnica correcta, activar el pectoral y fortalecer progresivamente sin riesgo de lesiones."
+   },
+   ejercicios:[
+     {
+       nombre:"Press en máquina",
+       tipo:"Pecho",
+       img:"img/pecho1.jpg",
+       desc:"3 series x 12 repeticiones · Movimiento guiado"
+     },
+     {
+       nombre:"Aperturas en máquina",
+       tipo:"Pecho",
+       img:"img/pecho2.jpg",
+       desc:"3 series x 15 repeticiones · Estiramiento controlado"
+     },
+     {
+       nombre:"Flexiones",
+       tipo:"Pecho",
+       img:"img/pecho3.jpg",
+       desc:"3 series x 10 repeticiones · Peso corporal"
+     }
+   ]
+ },
+ intermedio:{
+   info:{
+     titulo:"Nivel Intermedio",
+     texto:"Ideal para quienes ya dominan los movimientos básicos y buscan mayor volumen muscular y control del pectoral."
+   },
+   ejercicios:[
+     {
+       nombre:"Press banca",
+       tipo:"Pecho",
+       img:"img/pecho4.jpg",
+       desc:"4 series x 10 repeticiones · Ejercicio base"
+     },
+     {
+       nombre:"Press inclinado mancuernas",
+       tipo:"Pecho superior",
+       img:"img/pecho5.jpg",
+       desc:"3 series x 12 repeticiones · Enfoque superior"
+     },
+     {
+       nombre:"Aperturas con mancuernas",
+       tipo:"Pecho",
+       img:"img/pecho6.jpg",
+       desc:"3 series x 12 repeticiones · Control total"
+     }
+   ]
+ },
+ avanzado:{
+   info:{
+     titulo:"Nivel Avanzado",
+     texto:"Rutina intensa para máxima hipertrofia y fuerza. Requiere excelente técnica y control de cargas."
+   },
+   ejercicios:[
+     {
+       nombre:"Press banca pesado",
+       tipo:"Pecho",
+       img:"img/pecho7.jpg",
+       desc:"5 series x 5–6 repeticiones · Carga alta"
+     },
+     {
+       nombre:"Press inclinado barra",
+       tipo:"Pecho superior",
+       img:"img/pecho8.jpg",
+       desc:"4 series x 8 repeticiones · Tensión constante"
+     },
+     {
+       nombre:"Fondos lastrados",
+       tipo:"Pecho / Tríceps",
+       img:"img/pecho9.jpg",
+       desc:"4 series x 8 repeticiones · Intensidad máxima"
+     }
+   ]
+ }
+};
+function cambiarNivel(n){
+ document.querySelectorAll(".niveles button")
+   .forEach(b=>b.classList.remove("active"));
+ event.target.classList.add("active");
+ document.getElementById("info").innerHTML = `
+<h2>${data[n].info.titulo}</h2>
+<p>${data[n].info.texto}</p>
+ `;
+ document.getElementById("ejercicios").innerHTML =
+   data[n].ejercicios.map(e=>`
+<div class="ejercicio">
+<img src="${e.img}">
+<div class="content">
+<h3>${e.nombre}</h3>
+<span>${e.tipo}</span>
+<p>${e.desc}</p>
+</div>
+</div>
+   `).join("");
+}
+cambiarNivel("principiante");
+</script>
+</body>
+</html>
+ 

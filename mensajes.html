@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soporte | CRFit Gym</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+body{
+background:#0d0d0d;
+color:white;
+height:100vh;
+display:flex;
+flex-direction:column;
+}
+/* HEADER */
+header{
+background:#000;
+padding:15px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 5px 20px rgba(0,0,0,.7);
+}
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+.logo img{
+height:55px;
+}
+nav a{
+color:white;
+margin-left:20px;
+text-decoration:none;
+font-weight:bold;
+}
+nav a:hover{
+color:#1db954;
+}
+/* CHAT AREA */
+.chat-container{
+flex:1;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+/* CHAT BOX */
+.chat-box{
+width:700px;
+height:80vh;
+background:#141414;
+border-radius:20px;
+display:flex;
+flex-direction:column;
+box-shadow:0 25px 60px rgba(0,0,0,.8);
+overflow:hidden;
+}
+/* HEADER CHAT */
+.chat-header{
+background:#111;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #222;
+}
+.status{
+display:flex;
+align-items:center;
+gap:8px;
+}
+.dot{
+width:10px;
+height:10px;
+background:#1db954;
+border-radius:50%;
+}
+.clear{
+background:#1db954;
+border:none;
+padding:6px 12px;
+border-radius:6px;
+cursor:pointer;
+font-size:12px;
+}
+/* MENSAJES */
+.messages{
+flex:1;
+padding:20px;
+overflow-y:auto;
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+/* BURBUJAS */
+.msg{
+max-width:75%;
+padding:10px 14px;
+border-radius:14px;
+font-size:14px;
+line-height:1.4;
+}
+.bot{
+background:#2a2a2a;
+align-self:flex-start;
+}
+.user{
+background:#1db954;
+color:black;
+align-self:flex-end;
+}
+.typing{
+font-size:12px;
+color:#aaa;
+font-style:italic;
+}
+/* INPUT */
+.chat-input{
+display:flex;
+border-top:1px solid #222;
+}
+.chat-input input{
+flex:1;
+padding:14px;
+border:none;
+background:#1c1c1c;
+color:white;
+outline:none;
+}
+.chat-input button{
+background:#1db954;
+border:none;
+padding:0 25px;
+font-weight:bold;
+cursor:pointer;
+}
+/* PREGUNTAS RAPIDAS */
+.quick{
+padding:10px;
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+border-top:1px solid #222;
+background:#111;
+}
+.quick button{
+padding:6px 10px;
+font-size:12px;
+border-radius:8px;
+border:none;
+background:#1db954;
+cursor:pointer;
+}
+/* FOOTER */
+.chat-footer{
+font-size:11px;
+color:#777;
+text-align:center;
+padding:5px;
+}
+/* RESPONSIVE */
+@media(max-width:700px){
+.chat-box{
+width:100%;
+height:100%;
+border-radius:0;
+}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">
+<img src="logoCRfit.png">
+<h3>CRFit Soporte</h3>
+</div>
+<nav>
+<a href="pagina-inicio.html">Inicio</a>
+<a href="catalogo.html">Catálogo</a>
+</nav>
+</header>
+<div class="chat-container">
+<div class="chat-box">
+<div class="chat-header">
+<div class="status">
+<div class="dot"></div>
+<span>Asistente CRFit en línea</span>
+</div>
+<button class="clear" onclick="clearChat()">Limpiar chat</button>
+</div>
+<div class="messages" id="messages"></div>
+<div class="quick">
+</div>
+<div class="chat-input">
+<input type="text" id="input" placeholder="Escribe tu mensaje...">
+<button onclick="send()">Enviar</button>
+</div>
+<div class="chat-footer">
+Soporte automático CRFit Gym
+</div>
+</div>
+</div>
+<script>
+const input=document.getElementById("input");
+const messages=document.getElementById("messages");
+let history=JSON.parse(localStorage.getItem("chat")) || [];
+history.forEach(m=>{
+addMessage(m.text,m.type,false);
+});
+if(history.length===0){
+addMessage("Hola 👋 Bienvenido a CRFit Gym. Puedo ayudarte con productos, rutinas, envíos, pagos o recomendaciones de entrenamiento.","bot");
+}
+input.addEventListener("keypress",e=>{
+if(e.key==="Enter") send();
+});
+function quick(text){
+input.value=text;
+send();
+}
+function send(){
+const text=input.value.trim();
+if(text==="") return;
+addMessage(text,"user");
+input.value="";
+typing();
+setTimeout(()=>{
+botReply(text.toLowerCase());
+},900);
+}
+function addMessage(text,type,save=true){
+const div=document.createElement("div");
+div.className="msg "+type;
+div.innerHTML=text;
+messages.appendChild(div);
+messages.scrollTop=messages.scrollHeight;
+if(save){
+history.push({text,type});
+localStorage.setItem("chat",JSON.stringify(history));
+}
+}
+function typing(){
+const div=document.createElement("div");
+div.className="msg bot typing";
+div.id="typing";
+div.innerHTML="Escribiendo...";
+messages.appendChild(div);
+messages.scrollTop=messages.scrollHeight;
+}
+function botReply(text){
+document.getElementById("typing").remove();
+let reply="Gracias por tu mensaje. ¿Podrías dar más detalles?";
+/* RESPUESTAS INTELIGENTES */
+if(text.includes("precio") || text.includes("cuanto")){
+reply="Puedes ver todos los precios dentro del catálogo de máquinas en nuestra página. Ahí encontrarás equipos para entrenamiento profesional.";
+}
+else if(text.includes("envio") || text.includes("entrega")){
+reply="Realizamos envíos a todo Costa Rica. El tiempo de entrega normalmente es de 3 a 5 días hábiles.";
+}
+else if(text.includes("maquina") || text.includes("producto")){
+reply="En CRFit tenemos máquinas como caminadoras, racks de pesas, bancos de ejercicio y equipo profesional para gimnasio.";
+}
+else if(text.includes("rutina")){
+reply="Te recomendamos combinar ejercicios de fuerza con cardio. Puedes visitar nuestra sección de rutinas dentro de la web.";
+}
+else if(text.includes("musica")){
+reply="Nuestra página también tiene una sección de música para entrenar con artistas populares para mantener tu motivación.";
+}
+else if(text.includes("pago")){
+reply="Aceptamos pagos con tarjeta y métodos seguros directamente desde nuestra página de pago.";
+}
+else if(text.includes("garantia")){
+reply="Todos nuestros productos tienen garantía de 12 meses contra defectos de fábrica.";
+}
+else if(text.includes("hola") || text.includes("buenas")){
+reply="¡Hola! 👋 Estoy aquí para ayudarte con cualquier duda sobre CRFit.";
+}
+else if(text.includes("contacto")){
+reply="Puedes contactarnos también por correo o mediante este chat para soporte inmediato.";
+}
+else if(text.includes("gracias")){
+reply="¡Con gusto! Si necesitas más ayuda solo dime.";
+}
+else if(text.includes("que ondaa")){
+reply="Que ondaa en que podemos ayudarte? 😊  .";
+}
+else if(text.includes("ropa")){
+reply="Estamos trabajando en poner un catalogo de ropa, por el momento no lo tenemos.";
+}
+else if(text.includes("creador")){
+reply="El creador de la pagina web se llama Sebastian Salazar.";
+}
+else if(text.includes("inicio de sesion")){
+reply="Por el momento estamos mejorando mas el inicio de sesion para que sea seguro.";
+}
+
+addMessage(reply,"bot");
+}
+function clearChat(){
+localStorage.removeItem("chat");
+history=[];
+messages.innerHTML="";
+addMessage("Chat reiniciado. ¿En qué puedo ayudarte?","bot");
+}
+</script>
+</body>
+</html>

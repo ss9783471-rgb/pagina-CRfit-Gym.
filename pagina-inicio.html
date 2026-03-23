@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRFit Gym</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+body{
+background:#0b0b0b;
+color:white;
+}
+/* HEADER */
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:80px;
+padding:0 50px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:rgba(0,0,0,.6);
+backdrop-filter:blur(10px);
+z-index:100;
+}
+.logo{
+display:flex;
+align-items:center;
+gap:15px;
+}
+.logo img{
+height:150px;
+transform:translateY(18px);
+}
+/* MENU */
+nav ul{
+list-style:none;
+display:flex;
+gap:30px;
+}
+nav a{
+color:white;
+text-decoration:none;
+font-weight:bold;
+cursor:pointer;
+}
+nav a:hover{
+color:#1db954
+}
+/* HAMBURGUESA */
+.menu-toggle{
+display:none;
+font-size:28px;
+cursor:pointer;
+}
+/* USER */
+.user-area{
+display:flex;
+align-items:center;
+gap:15px;
+}
+/* BOTONES */
+.btn{
+padding:8px 20px;
+border-radius:20px;
+border:none;
+cursor:pointer;
+font-weight:bold;
+}
+.btn-green{
+background:#1db954;
+color:black;
+}
+.btn-dark{
+background:#222;
+color:white;
+}
+/* HERO */
+.hero{
+height:100vh;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+.hero video{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+}
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.4);
+}
+.hero-content{
+position:relative;
+z-index:2;
+padding-top:80px;
+}
+.hero h1{
+font-size:3rem;
+}
+.hero p{
+max-width:600px;
+margin:20px auto;
+color:#ccc;
+}
+.hero a{
+display:inline-block;
+padding:15px 45px;
+background:#1db954;
+color:black;
+border-radius:30px;
+font-weight:bold;
+text-decoration:none;
+cursor:pointer;
+}
+/* SECCIONES */
+section{
+padding:120px 50px;
+max-width:1300px;
+margin:auto;
+}
+section h2{
+text-align:center;
+font-size:2.5rem;
+margin-bottom:60px;
+}
+/* SOBRE */
+.sobre p{
+max-width:800px;
+margin:auto;
+text-align:center;
+color:#bbb;
+line-height:1.6;
+}
+.sobre-cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+margin-top:60px;
+}
+.sobre-card{
+background:#161616;
+padding:30px;
+border-radius:20px;
+text-align:center;
+transition:.3s;
+}
+.sobre-card:hover{
+transform:translateY(-10px);
+box-shadow:0 10px 30px rgba(0,0,0,.6);
+}
+.sobre-card h3{
+color:#1db954;
+margin-bottom:10px;
+}
+/* CARRUSEL */
+.slider{
+position:relative;
+max-width:1000px;
+margin:auto;
+height:360px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.slides{
+position:relative;
+width:100%;
+height:100%;
+}
+.slide{
+position:absolute;
+top:50%;
+left:50%;
+width:340px;
+padding:40px;
+background:#161616;
+border-radius:28px;
+transform:translate(-50%,-50%) scale(.6);
+opacity:.25;
+filter:blur(3px);
+transition:.6s;
+text-align:center;
+}
+.slide.active{
+transform:translate(-50%,-50%) scale(1);
+opacity:1;
+filter:none;
+z-index:5;
+}
+.slide.left{transform:translate(-160%,-50%) scale(.7)}
+.slide.right{transform:translate(60%,-50%) scale(.7)}
+.slide a{
+display:inline-block;
+margin-top:20px;
+color:#1db954;
+text-decoration:none;
+font-weight:bold;
+}
+.arrow{
+position:absolute;
+background:#1db954;
+border:none;
+width:48px;
+height:48px;
+border-radius:50%;
+font-size:26px;
+cursor:pointer;
+}
+.arrow.left{left:-70px}
+.arrow.right{right:-70px}
+/* COMENTARIOS */
+.comentario{
+font-style:italic;
+color:#ccc;
+margin-top:10px;
+}
+.ver-comentarios{
+display:block;
+margin:60px auto 0 auto;
+text-align:center;
+width:220px;
+padding:15px;
+background:#1db954;
+border-radius:30px;
+color:black;
+text-decoration:none;
+font-weight:bold;
+}
+/* LOGIN (iOS STYLE) */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+backdrop-filter:blur(10px);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:200;
+}
+.modal-box{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(25px);
+padding:30px;
+width:90%;
+max-width:340px;
+border-radius:25px;
+box-shadow:0 20px 60px rgba(0,0,0,.7);
+border:1px solid rgba(255,255,255,0.1);
+}
+.modal-box input{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border-radius:20px;
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.1);
+color:white;
+}
+/* FOOTER */
+footer{
+padding:30px;
+text-align:center;
+background:#121212;
+color:#888;
+}
+/* ========================= */
+/* 📱 RESPONSIVE PERFECTO */
+/* ========================= */
+@media(max-width:900px){
+header{
+padding:0 20px;
+}
+.logo img{
+height:90px;
+transform:translateY(10px);
+}
+/* hamburguesa */
+.menu-toggle{
+display:block;
+}
+/* menú oculto */
+nav{
+position:fixed;
+top:80px;
+left:0;
+width:100%;
+background:rgba(0,0,0,.95);
+backdrop-filter:blur(20px);
+display:none;
+flex-direction:column;
+padding:20px;
+}
+nav.active{
+display:flex;
+}
+nav ul{
+flex-direction:column;
+gap:20px;
+}
+/* HERO */
+.hero h1{
+font-size:2rem;
+}
+.hero p{
+font-size:14px;
+padding:0 10px;
+}
+.hero a{
+padding:12px 30px;
+}
+/* SECCIONES */
+section{
+padding:100px 20px;
+}
+section h2{
+font-size:1.8rem;
+}
+/* TARJETAS */
+.sobre-cards{
+grid-template-columns:1fr;
+}
+/* SLIDER */
+.slider{
+height:auto;
+}
+.slide{
+width:90%;
+padding:25px;
+}
+.arrow{
+display:none;
+}
+}
+/* usuario logueado estilo glass */
+.user-area{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+padding:8px 15px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,0.1);
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">
+<img src="logoCRfit.png">
+<strong>CRFit Gym</strong>
+</div>
+<nav>
+<ul>
+<li><a href="#">Inicio</a></li>
+<li><a onclick="go('rutinas.html')">Rutinas</a></li>
+<li><a onclick="go('productos.html')">Tienda</a></li>
+<li><a onclick="go('catalogo.html')">Productos</a></li>
+<li><a onclick="go('sobre_nosotros.html')">Sobre nosotros</a></li>
+</ul>
+</nav>
+<div class="user-area" id="userArea">
+<button class="btn btn-green" onclick="abrirLogin()">Iniciar sesión</button>
+</div>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+</header>
+<!-- HERO -->
+<div class="hero">
+<video autoplay muted loop playsinline preload="auto">
+<source src="video-gym2.mp4" type="video/mp4">
+</video>
+<div class="hero-content">
+<h1>Entrená fuerte. Entrená CRFit</h1>
+<p>Rutinas profesionales, música para entrenar, productos fitness y más.</p>
+<a onclick="go('rutinas.html')">Comenzar ahora</a>
+</div>
+</div>
+<!-- SOBRE -->
+<section class="sobre">
+<h2>Sobre CRFit Gym</h2>
+<p>
+CRFit Gym es una plataforma creada para motivar a las personas a mejorar su condición física mediante rutinas profesionales, música para entrenar y productos saludables.
+</p>
+<div class="sobre-cards">
+<div class="sobre-card">
+<h3>Misión</h3>
+<p>Motivar a las personas a mejorar su salud mediante disciplina y entrenamiento.</p>
+</div>
+<div class="sobre-card">
+<h3>Visión</h3>
+<p>Ser una plataforma fitness moderna que inspire a miles de personas.</p>
+</div>
+<div class="sobre-card">
+<h3>Valores</h3>
+<p>Constancia, progreso personal y mentalidad fuerte.</p>
+</div>
+</div>
+</section>
+<!-- EXPLORAR -->
+<section>
+<h2>Explorá CRFit</h2>
+<div class="slider">
+<button class="arrow left" onclick="prev(explora)">‹</button>
+<div class="slides" id="explora">
+<div class="slide active">
+<h3>💪 Rutinas</h3>
+<a onclick="go('rutinas.html')">Ver más</a>
+</div>
+<div class="slide right">
+<h3>🎧 Música</h3>
+<a onclick="go('musica.html')">Ver más</a>
+</div>
+<div class="slide">
+<h3>🛒 Productos</h3>
+<a onclick="go('productos.html')">Ver más</a>
+</div>
+<div class="slide left">
+<h3>🏋️ Máquinas</h3>
+<a onclick="go('catalogo.html')">Ver más</a>
+</div>
+</div>
+<button class="arrow right" onclick="next(explora)">›</button>
+</div>
+</section>
+<!-- COMENTARIOS -->
+<section>
+<h2>Opiniones de nuestros usuarios</h2>
+<div class="slider">
+<button class="arrow left" onclick="prev(comentarios)">‹</button>
+<div class="slides" id="comentarios">
+<div class="slide active">
+<h3>Angie A.</h3>
+<p class="comentario">Las rutinas de CRFit me ayudaron a mejorar mi cintura.</p>
+</div>
+<div class="slide right">
+<h3>Dilan L.</h3>
+<p class="comentario">La música para entrenar es buenísima.</p>
+</div>
+<div class="slide">
+<h3>Kevin S.</h3>
+<p class="comentario">Los ejercicios están muy bien explicados.</p>
+</div>
+<div class="slide left">
+<h3>Laura M.</h3>
+<p class="comentario">Me encanta el diseño de la página.</p>
+</div>
+</div>
+<button class="arrow right" onclick="next(comentarios)">›</button>
+</div>
+<a class="ver-comentarios" onclick="go('comentarios.html')">
+Enviar comentario
+</a>
+</section>
+<footer>
+© 2026 CRFit Gym
+</footer>
+<!-- LOGIN -->
+<div class="modal" id="loginModal">
+<div class="modal-box">
+<h3>Iniciar sesión</h3>
+<input id="nombre" placeholder="Nombre completo">
+<input id="correo" placeholder="Correo electrónico">
+<input id="usuario" placeholder="Usuario">
+<input id="pass" type="password" placeholder="Contraseña">
+<button class="btn btn-green" style="width:100%" onclick="login()">Entrar</button>
+</div>
+</div>
+<script>
+const userArea=document.getElementById("userArea");
+const modal=document.getElementById("loginModal");
+function abrirLogin(){
+modal.style.display="flex"
+}
+function login(){
+const nombre=document.getElementById("nombre").value;
+const correo=document.getElementById("correo").value;
+const usuario=document.getElementById("usuario").value;
+const pass=document.getElementById("pass").value;
+if(!nombre||!correo||!usuario||!pass){
+alert("Debes completar todos los datos");
+return;
+}
+localStorage.setItem("crfitUser",nombre);
+modal.style.display="none";
+cargarUsuario();
+}
+function cerrarSesion(){
+localStorage.removeItem("crfitUser");
+location.reload();
+}
+function cargarUsuario(){
+const u=localStorage.getItem("crfitUser");
+if(u){
+userArea.innerHTML=`Hola <strong>${u}</strong>
+<button class="btn btn-dark" onclick="cerrarSesion()">Cerrar sesión</button>`;
+}
+}
+cargarUsuario();
+function go(url){
+if(!localStorage.getItem("crfitUser")){
+alert("Debes iniciar sesión para entrar.");
+abrirLogin();
+}else{
+location.href=url;
+}
+}
+/* SLIDER */
+function setupSlider(c){
+const s=c.querySelectorAll(".slide");
+let i=0;
+return{
+next(){i=(i+1)%s.length;update()},
+prev(){i=(i-1+s.length)%s.length;update()}
+};
+function update(){
+s.forEach((e,n)=>{
+e.className="slide";
+if(n===i)e.classList.add("active");
+if(n===(i+1)%s.length)e.classList.add("right");
+if(n===(i-1+s.length)%s.length)e.classList.add("left");
+});
+}
+}
+const explora=setupSlider(document.getElementById("explora"));
+const comentarios=setupSlider(document.getElementById("comentarios"));
+function next(s){s.next()}
+function prev(s){s.prev()}
+
+function toggleMenu(){
+document.querySelector("nav").classList.toggle("active");
+}
+
+</script>
+</body>
+</html>

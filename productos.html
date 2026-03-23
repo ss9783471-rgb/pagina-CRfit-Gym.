@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Productos | CRFit Gym</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+body{
+background:#0f0f0f;
+color:#fff;
+}
+/* HEADER */
+header{
+background:#000;
+padding:15px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 5px 25px rgba(0,0,0,.6);
+}
+.brand{
+display:flex;
+align-items:center;
+gap:12px;
+}
+.brand img{
+height:55px;
+}
+nav a{
+color:#fff;
+margin-left:20px;
+text-decoration:none;
+font-weight:bold;
+opacity:.9;
+}
+nav a:hover{
+color:#1db954;
+}
+/* BOTON CARRITO */
+.cart-btn{
+position:fixed;
+top:95px;
+right:25px;
+background:linear-gradient(135deg,#1db954,#1ed760);
+color:#000;
+padding:14px 20px;
+border-radius:50px;
+font-weight:bold;
+cursor:pointer;
+z-index:200;
+box-shadow:0 15px 35px rgba(29,185,84,.4);
+transition:.3s;
+display:flex;
+align-items:center;
+gap:8px;
+}
+.cart-btn:hover{
+transform:scale(1.08);
+box-shadow:0 20px 45px rgba(29,185,84,.6);
+}
+/* BUSCADOR */
+.search-bar{
+background:#111;
+padding:30px;
+display:flex;
+justify-content:center;
+}
+.search-bar input{
+width:60%;
+padding:15px;
+font-size:16px;
+border:none;
+border-radius:10px;
+background:#1b1b1b;
+color:white;
+outline:none;
+}
+/* CONTENEDOR */
+.container{
+max-width:1300px;
+margin:auto;
+padding:35px;
+}
+/* CATEGORIAS */
+.categories{
+display:flex;
+gap:15px;
+margin-bottom:35px;
+flex-wrap:wrap;
+}
+.categories button{
+padding:11px 24px;
+border:none;
+border-radius:25px;
+background:#1c1c1c;
+color:white;
+cursor:pointer;
+font-weight:bold;
+transition:.3s;
+}
+.categories button.active,
+.categories button:hover{
+background:#1db954;
+color:black;
+}
+/* GRID PRODUCTOS */
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+gap:28px;
+}
+/* TARJETA PRODUCTO */
+.product{
+background:#161616;
+border-radius:16px;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+transition:.35s;
+box-shadow:0 10px 25px rgba(0,0,0,.5);
+}
+.product:hover{
+transform:translateY(-8px) scale(1.02);
+box-shadow:0 18px 40px rgba(0,0,0,.8);
+}
+.product img{
+width:100%;
+height:210px;
+object-fit:contain;
+background:#0b0b0b;
+padding:12px;
+}
+.product-info{
+padding:18px;
+display:flex;
+flex-direction:column;
+flex:1;
+}
+.product-info h3{
+font-size:18px;
+margin-bottom:6px;
+}
+.product-info p{
+font-size:13px;
+color:#9a9a9a;
+margin-bottom:12px;
+}
+.price{
+font-size:20px;
+font-weight:bold;
+margin-bottom:14px;
+color:#1ed760;
+}
+.product button{
+margin-top:auto;
+padding:13px;
+background:linear-gradient(135deg,#1db954,#1ed760);
+color:#000;
+border:none;
+cursor:pointer;
+font-weight:bold;
+border-radius:8px;
+transition:.25s;
+}
+.product button:hover{
+transform:scale(1.05);
+box-shadow:0 8px 20px rgba(29,185,84,.5);
+}
+/* CARRITO */
+.cart{
+position:fixed;
+top:0;
+right:-380px;
+width:360px;
+height:100vh;
+background:#111;
+padding:25px;
+transition:.35s;
+z-index:300;
+overflow-y:auto;
+box-shadow:-10px 0 30px rgba(0,0,0,.7);
+}
+.cart.active{
+right:0;
+}
+.cart h2{
+margin-bottom:20px;
+}
+.cart-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #333;
+padding:12px 0;
+font-size:14px;
+}
+.cart-item button{
+background:none;
+border:none;
+color:#ff5c5c;
+cursor:pointer;
+font-size:18px;
+}
+.cart-total{
+margin:20px 0;
+font-size:20px;
+font-weight:bold;
+}
+.cart .pay{
+width:100%;
+padding:15px;
+background:#1db954;
+border:none;
+font-weight:bold;
+cursor:pointer;
+border-radius:8px;
+}
+/* FOOTER */
+footer{
+margin-top:70px;
+background:#000;
+color:#aaa;
+padding:25px;
+text-align:center;
+}
+</style>
+</head>
+<body>
+<header>
+<div class="brand">
+<img src="logoCRfit.png">
+<h2>CRFit Gym</h2>
+</div>
+<nav>
+<a href="pagina-inicio.html">Inicio</a>
+<a href="tiendaRopa">Tienda de Ropa</a>
+<a href="productos.html">Productos</a>
+<a href="catalogo.html">Máquinas</a>
+</nav>
+</header>
+<div class="cart-btn" onclick="toggleCart()">
+🛒 Carrito (<span id="count">0</span>)
+</div>
+<div class="search-bar">
+<input type="text" placeholder="🔍 Buscar productos..." oninput="buscar(this.value)">
+</div>
+<main class="container">
+<div class="categories">
+<button class="active" onclick="filtrar('todos',this)">Ver todo</button>
+<button onclick="filtrar('suplementos',this)">Suplementos</button>
+<button onclick="filtrar('galletas',this)">Galletas</button>
+<button onclick="filtrar('fit',this)">Comida Fit</button>
+</div>
+<div class="products" id="lista"></div>
+</main>
+<div class="cart" id="cart">
+<h2>🛒 Tu carrito</h2>
+<div id="cartItems"></div>
+<div class="cart-total">Total: ₡<span id="total">0</span></div>
+<button class="pay" onclick="irAPago()">Ir a pagar</button>
+</div>
+<footer>© 2026 CRFit gym
+</footer>
+<script>
+const productos = [
+{nombre:"Proteína Whey", categoria:"suplementos", precio:32000, img:"v_proteina.jpg"},
+{nombre:"Proteína Dos pinos", categoria:"suplementos", precio:28000, img:"v_proteinaDospinos.webp"},
+{nombre:"Creatina", categoria:"suplementos", precio:18000, img:"img/creatina.jpg"},
+{nombre:"Creatina Plus", categoria:"suplementos", precio:20000, img:"v_productos3.jpg"},
+{nombre:"Galletas Fit", categoria:"galletas", precio:3500, img:"https://m.media-amazon.com/images/I/71SE-CKOJYL.jpg"},
+{nombre:"Galletas nutri snacks", categoria:"galletas", precio:3500, img:"v_galletasFit1.png"},
+{nombre:"Galletas nutri snacks", categoria:"galletas", precio:3500, img:"v_galletasFit2.png"},
+{nombre:"Galletas nutri snacks", categoria:"galletas", precio:3500, img:"v_galletasFit3.webp"},
+{nombre:"Chocolate fit", categoria:"galletas", precio:3500, img:"v_chocolateFit.jpg"},
+{nombre:"Barra Energética", categoria:"fit", precio:2000, img:"img/barra.jpg"},
+{nombre:"Granola", categoria:"fit", precio:12000, img:"v_granola.webp"},
+{nombre:"bebida de frutas", categoria:"fit", precio:32000, img:"img/proteina1.jpg"},
+{nombre:"creatina x3", categoria:"suplementos", precio:32000, img:"img/proteina1.jpg"},
+{nombre:"Proteina vainilla", categoria:"suplementos", precio:28000, img:"img/proteina2.jpg"},
+{nombre:"Creatina x4", categoria:"suplementos", precio:18000, img:"v_creatinaX4.jpeg"},
+{nombre:"proteina vainilla", categoria:"suplementos", precio:20000, img:"img/proteina1.jpg"},
+{nombre:"Barra Tosh chocolate", categoria:"fit", precio:2000, img:"v_barraTosh.png"},
+{nombre:"Barra Tosh zero fresa", categoria:"fit", precio:2000, img:"v_barraTosh2.png"},
+{nombre:"Barra Energética frutas", categoria:"fit", precio:2000, img:"v_barraTosh3.png"},
+{nombre:"Barra Energética frutas", categoria:"fit", precio:2000, img:"v_barraTosh4.png"},
+{nombre:"Barra Energética frutas", categoria:"fit", precio:2000, img:"v_barraTosh5.png"},
+{nombre:"bebida suerox", categoria:"fit", precio:12000, img:"v_bebida suerox1.webp"},
+{nombre:"bebida suerox", categoria:"fit", precio:32000, img:"v_bebida suerox2.webp"}
+];
+let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
+const lista = document.getElementById("lista");
+const cartItems = document.getElementById("cartItems");
+const total = document.getElementById("total");
+const count = document.getElementById("count");
+function render(arr){
+lista.innerHTML="";
+arr.forEach((p,i)=>{
+lista.innerHTML+=`
+<div class="product">
+<img src="${p.img}">
+<div class="product-info">
+<h3>${p.nombre}</h3>
+<p>Producto premium para entrenamiento</p>
+<div class="price">₡${p.precio.toLocaleString()}</div>
+<button onclick="agregar(${productos.indexOf(p)})">
+Agregar al carrito
+</button>
+</div>
+</div>
+`;
+});
+}
+/* AGREGAR PRODUCTO */
+function agregar(i){
+const prod = productos[i];
+const existente = carrito.find(p=>p.nombre===prod.nombre);
+if(existente){
+existente.cantidad++;
+}else{
+carrito.push({...prod, cantidad:1});
+}
+guardar();
+}
+/* SUMAR CANTIDAD */
+function sumar(i){
+carrito[i].cantidad++;
+guardar();
+}
+/* RESTAR CANTIDAD */
+function restar(i){
+carrito[i].cantidad--;
+if(carrito[i].cantidad<=0){
+carrito.splice(i,1);
+}
+guardar();
+}
+function guardar(){
+sessionStorage.setItem("carrito",JSON.stringify(carrito));
+actualizarCarrito();
+}
+/* ACTUALIZAR CARRITO */
+function actualizarCarrito(){
+cartItems.innerHTML="";
+let suma=0;
+let cantidadTotal=0;
+carrito.forEach((p,i)=>{
+suma += p.precio * p.cantidad;
+cantidadTotal += p.cantidad;
+cartItems.innerHTML+=`
+<div class="cart-item">
+<span>
+${p.nombre} x${p.cantidad}
+</span>
+<div>
+<button onclick="restar(${i})">➖</button>
+<button onclick="sumar(${i})">➕</button>
+</div>
+</div>
+`;
+});
+total.textContent = suma.toLocaleString();
+count.textContent = cantidadTotal;
+}
+function toggleCart(){
+document.getElementById("cart").classList.toggle("active");
+}
+function filtrar(cat,btn){
+document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+if(cat==="todos"){
+render(productos);
+}else{
+render(productos.filter(p=>p.categoria===cat));
+}
+}
+function buscar(txt){
+render(productos.filter(p=>p.nombre.toLowerCase().includes(txt.toLowerCase())));
+}
+function irAPago(){
+if(carrito.length===0){
+alert("Tu carrito está vacío");
+return;
+}
+sessionStorage.setItem("carrito",JSON.stringify(carrito));
+window.location.href="carrito.html";
+}
+render(productos);
+actualizarCarrito();
+</script>
+</body>
+</html>
+ 
