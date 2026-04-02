@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRFit Gym</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+}
+
+body{
+background: radial-gradient(circle at top, #1c1c1e, #0a0a0a 75%);
+color:white;
+}
+
+/* HEADER */
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:75px;
+padding:0 30px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:rgba(20,20,20,0.6);
+backdrop-filter:blur(25px);
+border-bottom:1px solid rgba(255,255,255,0.05);
+z-index:100;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo img{
+height:55px;
+transform:none;
+}
+
+/* NAV */
+nav ul{
+list-style:none;
+display:flex;
+gap:25px;
+}
+
+nav a{
+color:#ddd;
+text-decoration:none;
+font-weight:500;
+transition:.2s;
+}
+
+nav a:hover{
+color:#22c55e;
+}
+
+/* MENU MOBILE */
+.menu-toggle{
+display:none;
+font-size:26px;
+cursor:pointer;
+}
+
+/* USER */
+.user-area{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+/* BOTONES */
+.btn{
+padding:8px 18px;
+border-radius:999px;
+border:none;
+cursor:pointer;
+font-weight:600;
+transition:.2s;
+}
+
+.btn-green{
+background:linear-gradient(135deg,#22c55e,#16a34a);
+color:white;
+}
+
+.btn-green:hover{
+transform:scale(1.05);
+box-shadow:0 6px 20px rgba(34,197,94,0.4);
+}
+
+.btn-dark{
+background:rgba(255,255,255,0.08);
+color:white;
+}
+
+/* HERO */
+.hero{
+height:100vh;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+
+.hero video{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.5);
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+padding-top:75px;
+}
+
+.hero h1{
+font-size:2.8rem;
+font-weight:600;
+letter-spacing:.5px;
+}
+
+.hero p{
+max-width:550px;
+margin:15px auto;
+color:#bbb;
+}
+
+.hero a{
+display:inline-block;
+padding:14px 35px;
+background:linear-gradient(135deg,#22c55e,#16a34a);
+color:white;
+border-radius:999px;
+font-weight:600;
+text-decoration:none;
+transition:.3s;
+}
+
+.hero a:hover{
+transform:scale(1.05);
+}
+
+/* SECCIONES */
+section{
+padding:100px 30px;
+max-width:1200px;
+margin:auto;
+}
+
+section h2{
+text-align:center;
+font-size:2rem;
+margin-bottom:50px;
+}
+
+/* SOBRE */
+.sobre p{
+max-width:700px;
+margin:auto;
+text-align:center;
+color:#aaa;
+line-height:1.6;
+}
+
+/* GRID FIX */
+.sobre-cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+margin-top:40px;
+}
+
+/* CARDS iOS */
+.sobre-card{
+position:relative;
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(30px);
+border-radius:26px;
+padding:25px;
+border:1px solid rgba(255,255,255,0.06);
+
+box-shadow:
+0 10px 40px rgba(0,0,0,0.6),
+inset 0 1px 0 rgba(255,255,255,0.05);
+
+transition:.35s;
+}
+
+.sobre-card:hover{
+transform:translateY(-6px);
+box-shadow:
+0 20px 60px rgba(0,0,0,0.8),
+0 0 30px rgba(34,197,94,0.15);
+}
+
+.sobre-card h3{
+color:#22c55e;
+margin-bottom:10px;
+}
+
+/* SLIDER */
+.slider{
+position:relative;
+max-width:900px;
+margin:auto;
+height:320px;
+}
+
+.slide{
+position:absolute;
+top:50%;
+left:50%;
+width:300px;
+padding:30px;
+
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(30px);
+
+border-radius:28px;
+border:1px solid rgba(255,255,255,0.08);
+
+box-shadow:0 15px 50px rgba(0,0,0,0.7);
+
+transform:translate(-50%,-50%) scale(.6);
+opacity:.3;
+transition:.5s;
+text-align:center;
+}
+
+.slide.active{
+transform:translate(-50%,-50%) scale(1);
+opacity:1;
+z-index:5;
+}
+
+.slide.left{
+transform:translate(-140%,-50%) scale(.75);
+}
+
+.slide.right{
+transform:translate(40%,-50%) scale(.75);
+}
+
+/* BOTONES SLIDER */
+.arrow{
+position:absolute;
+background:rgba(255,255,255,0.1);
+border:none;
+width:45px;
+height:45px;
+border-radius:50%;
+font-size:22px;
+cursor:pointer;
+backdrop-filter:blur(10px);
+}
+
+.arrow.left{left:-50px}
+.arrow.right{right:-50px}
+
+/* COMENTARIOS */
+.comentario{
+color:#aaa;
+margin-top:10px;
+}
+
+.ver-comentarios{
+display:block;
+margin:40px auto 0;
+text-align:center;
+width:200px;
+padding:12px;
+background:#22c55e;
+border-radius:999px;
+color:white;
+text-decoration:none;
+}
+
+/* FOOTER */
+footer{
+padding:25px;
+text-align:center;
+color:#777;
+}
+
+/* ========================= */
+/* 📱 RESPONSIVE PERFECTO */
+/* ========================= */
+@media(max-width:900px){
+
+header{
+padding:0 15px;
+height:65px;
+}
+
+.logo img{
+height:45px;
+}
+
+.menu-toggle{
+display:block;
+}
+
+nav{
+position:fixed;
+top:65px;
+left:0;
+width:100%;
+height:calc(100vh - 65px);
+background:rgba(0,0,0,.95);
+backdrop-filter:blur(30px);
+display:none;
+flex-direction:column;
+padding:25px;
+z-index:200;
+}
+
+nav.active{
+display:flex;
+}
+
+nav ul{
+flex-direction:column;
+gap:20px;
+}
+
+/* HERO */
+.hero h1{
+font-size:1.8rem;
+}
+
+.hero p{
+font-size:14px;
+}
+
+/* SECCIONES */
+section{
+padding:70px 15px;
+}
+
+/* SLIDER MOBILE FIX */
+.slider{
+height:auto;
+}
+
+.slide{
+position:relative;
+transform:none !important;
+opacity:1 !important;
+margin-bottom:15px;
+width:100%;
+}
+
+.arrow{
+display:none;
+}
+
+/* BOTONES */
+.ver-comentarios{
+width:80%;
+}
+}
+/* MODAL */
+.modal{
+position:fixed;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(20px);
+z-index:500;
+overflow:hidden;
+}
+
+/* TARJETA iOS */
+.modal-card{
+position:relative;
+width:90%;
+max-width:340px;
+padding:30px;
+
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(30px);
+
+border-radius:28px;
+border:1px solid rgba(255,255,255,0.1);
+
+box-shadow:
+0 20px 60px rgba(0,0,0,0.7),
+inset 0 1px 0 rgba(255,255,255,0.1);
+
+animation:fadeUp .4s ease;
+}
+
+/* INPUTS */
+.modal-card input{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+border-radius:14px;
+background:rgba(255,255,255,0.08);
+color:white;
+outline:none;
+}
+
+/* BOTÓN */
+.btn-login{
+margin-top:15px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:18px;
+
+background:linear-gradient(135deg,#22c55e,#16a34a);
+color:white;
+font-weight:600;
+cursor:pointer;
+
+box-shadow:0 10px 30px rgba(34,197,94,.4);
+transition:.3s;
+}
+
+.btn-login:hover{
+transform:scale(1.05);
+}
+
+/* BURBUJAS */
+.bg-bubbles{
+position:absolute;
+inset:0;
+overflow:hidden;
+z-index:0;
+}
+
+.bg-bubbles span{
+position:absolute;
+display:block;
+width:120px;
+height:120px;
+background:rgba(34,197,94,0.2);
+border-radius:50%;
+filter:blur(40px);
+animation:float 10s infinite;
+}
+
+.bg-bubbles span:nth-child(1){top:10%;left:20%;}
+.bg-bubbles span:nth-child(2){top:70%;left:60%;}
+.bg-bubbles span:nth-child(3){top:40%;left:80%;}
+.bg-bubbles span:nth-child(4){top:80%;left:10%;}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-40px);}
+100%{transform:translateY(0);}
+}
+</style>
+</head>
+<body>
+  <!-- LOGIN MODAL iOS -->
+<div class="modal" id="loginModal">
+<div class="bg-bubbles"></div>
+
+<div class="modal-card">
+<h2>Iniciar sesión</h2>
+
+<input id="nombre" placeholder="Nombre completo">
+<input id="correo" placeholder="Correo electrónico">
+<input id="usuario" placeholder="Usuario">
+<input id="pass" type="password" placeholder="Contraseña">
+
+<button class="btn-login" onclick="login()">Entrar</button>
+</div>
+</div>
+
+<header>
+<div class="logo">
+<img src="logoCRfit.png">
+<strong>CRFit Gym</strong>
+</div>
+<nav>
+<ul>
+<li><a href="#">Inicio</a></li>
+<li><a onclick="go('rutinas.html')">Rutinas</a></li>
+<li><a onclick="go('productos.html')">Tienda</a></li>
+<li><a onclick="go('maquinas.html')">Productos</a></li>
+<li><a onclick="go('sobre_nosotros.html')">Sobre nosotros</a></li>
+</ul>
+</nav>
+<div class="user-area" id="userArea">
+<button class="btn btn-green" onclick="abrirLogin()">Iniciar sesión</button>
+</div>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+</header>
+<!-- HERO -->
+<div class="hero">
+<video autoplay muted loop playsinline preload="auto">
+<source src="video-gym.mp4" type="video/mp4">
+</video>
+<div class="hero-content">
+<h1>Entrená fuerte. CRFit Gym</h1>
+<p>Rutinas profesionales, música para entrenar, productos fitness y más.</p>
+<a onclick="go('rutinas.html')">Comenzar ahora</a>
+</div>
+</div>
+<!-- SOBRE -->
+<section class="sobre">
+<h2>Sobre CRFit Gym</h2>
+<p>
+CRFit Gym es una plataforma creada para motivar a las personas a mejorar su condición física mediante rutinas profesionales, música para entrenar y productos saludables.
+</p>
+<div class="sobre-cards">
+<div class="sobre-card">
+<h3>Misión</h3>
+<p>Motivar a las personas a mejorar su salud mediante disciplina y entrenamiento.</p>
+</div>
+<div class="sobre-card">
+<h3>Visión</h3>
+<p>Ser una plataforma fitness moderna que inspire a miles de personas.</p>
+</div>
+<div class="sobre-card">
+<h3>Valores</h3>
+<p>Constancia, progreso personal y mentalidad fuerte.</p>
+</div>
+</div>
+</section>
+<!-- EXPLORAR -->
+<section>
+<h2>Explorá CRFit</h2>
+<div class="slider">
+<button class="arrow left" onclick="prev(explora)">‹</button>
+<div class="slides" id="explora">
+<div class="slide active">
+<h3> Rutinas</h3>
+<a onclick="go('rutinas.html')">Ver más</a>
+</div>
+<div class="slide right">
+<h3>🎧 Música</h3>
+<a onclick="go('musica.html')">Ver más</a>
+</div>
+<div class="slide">
+<h3>🛒 Productos</h3>
+<a onclick="go('productos.html')">Ver más</a>
+</div>
+<div class="slide left">
+<h3>🏋️ Máquinas</h3>
+<a onclick="go('catalogo.html')">Ver más</a>
+</div>
+</div>
+<button class="arrow right" onclick="next(explora)">›</button>
+</div>
+</section>
+<!-- COMENTARIOS -->
+<section>
+<h2>Opiniones de nuestros usuarios</h2>
+<div class="slider">
+<button class="arrow left" onclick="prev(comentarios)">‹</button>
+<div class="slides" id="comentarios">
+<div class="slide active">
+<h3>Angie A.</h3>
+<p class="comentario">Las rutinas de CRFit me ayudaron a mejorar mi cintura.</p>
+</div>
+<div class="slide right">
+<h3>Dilan L.</h3>
+<p class="comentario">La música para entrenar es buenísima.</p>
+</div>
+<div class="slide">
+<h3>Kevin S.</h3>
+<p class="comentario">Los ejercicios están muy bien explicados.</p>
+</div>
+<div class="slide left">
+<h3>Laura M.</h3>
+<p class="comentario">Me encanta el diseño de la página.</p>
+</div>
+</div>
+<button class="arrow right" onclick="next(comentarios)">›</button>
+</div>
+<a class="ver-comentarios" onclick="go('comentarios.html')">
+Enviar comentario
+</a>
+</section>
+<footer>
+© 2026 CRFit Gym
+</footer>
+<script>
+const userArea = document.getElementById("userArea");
+const modal = document.getElementById("loginModal");
+
+function abrirLogin(){
+modal.style.display="flex";
+}
+
+function login(){
+const nombre = document.getElementById("nombre").value;
+
+if(!nombre){
+alert("Ingresá tu nombre");
+return;
+}
+
+localStorage.setItem("crfitUser", nombre);
+modal.style.display="none";
+
+cargarUsuario();
+}
+
+/* MOSTRAR USUARIO */
+function cargarUsuario(){
+const u = localStorage.getItem("crfitUser");
+
+if(u){
+userArea.innerHTML = `
+Hola <strong>${u}</strong>
+<button class="btn btn-dark" onclick="cerrarSesion()">Cerrar sesión</button>
+`;
+}else{
+userArea.innerHTML = `
+<button class="btn btn-green" onclick="abrirLogin()">Iniciar sesión</button>
+`;
+}
+}
+
+/* CERRAR SESIÓN */
+function cerrarSesion(){
+localStorage.removeItem("crfitUser");
+cargarUsuario();
+}
+
+/* BLOQUEO DE PÁGINAS */
+function go(url){
+if(!localStorage.getItem("crfitUser")){
+abrirLogin();
+return;
+}
+location.href = url;
+}
+cargarUsuario();
+/* SLIDER */
+function setupSlider(c){
+const s=c.querySelectorAll(".slide");
+let i=0;
+return{
+next(){i=(i+1)%s.length;update()},
+prev(){i=(i-1+s.length)%s.length;update()}
+};
+function update(){
+s.forEach((e,n)=>{
+e.className="slide";
+if(n===i)e.classList.add("active");
+if(n===(i+1)%s.length)e.classList.add("right");
+if(n===(i-1+s.length)%s.length)e.classList.add("left");
+});
+}
+}
+const explora=setupSlider(document.getElementById("explora"));
+const comentarios=setupSlider(document.getElementById("comentarios"));
+function next(s){s.next()}
+function prev(s){s.prev()}
+
+function toggleMenu(){
+document.querySelector("nav").classList.toggle("active");
+}
+
+</script>
+</body>
+</html>

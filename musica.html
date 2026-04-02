@@ -223,11 +223,104 @@ color:#1db954;
 text-decoration:none;}
 
  
-
-
-/* RESPONSIVE */
+/* ========================= */
+/* RESPONSIVE CELULAR MÚSICA */
+/* ========================= */
 @media(max-width:768px){
-.home{grid-template-columns:1fr;text-align:center;}
+ /* HOME */
+ .home{
+   grid-template-columns:1fr;
+   text-align:center;
+   gap:30px;
+ }
+ .home img{
+   height:300px;
+   width:100%;
+ }
+ .home h1{
+   font-size:2rem;
+ }
+ .home p{
+   font-size:14px;
+ }
+ .home button{
+   padding:10px 25px;
+   font-size:14px;
+ }
+ /* TOP BAR */
+ .top-bar{
+   flex-direction:column;
+   gap:15px;
+   text-align:center;
+ }
+ .top-bar h2{
+   font-size:1.5rem;
+ }
+ .top-bar button{
+   width:100%;
+   padding:10px;
+ }
+ /* CAROUSEL */
+ .carousel{
+   overflow-x:scroll;
+   scrollbar-width:none; /* Firefox */
+   -ms-overflow-style:none; /* IE 10+ */
+ }
+ .carousel::-webkit-scrollbar{
+   display:none;
+ }
+ .carousel-track{
+   display:flex;
+   gap:15px;
+ }
+ .artist-card{
+   min-width:160px;
+   height:200px;
+ }
+ .artist-card img{
+   border-radius:15px;
+ }
+ .artist-name{
+   font-size:12px;
+ }
+ /* GRID ARTISTAS */
+ .grid{
+   grid-template-columns:1fr;
+   gap:20px;
+ }
+ .artist{
+   height:200px;
+ }
+ .artist span{
+   font-size:14px;
+   margin-left:10px;
+   margin-bottom:8px;
+ }
+ .btn-listen{
+   margin:0 10px 10px 10px;
+   padding:6px;
+   font-size:12px;
+ }
+ /* ALBUMES */
+ .albums{
+   grid-template-columns:1fr;
+   gap:20px;
+ }
+ .album img{
+   height:140px;
+ }
+ .album h3{
+   font-size:13px;
+ }
+ .song{
+   font-size:12px;
+   padding:4px;
+ }
+ .play-btn{
+   width:35px;
+   height:35px;
+   font-size:16px;
+ }
 }
 </style>
 </head>
@@ -264,7 +357,7 @@ text-decoration:none;}
 <div class="artist">
 <img src="https://national-report.com/wp-content/uploads/2024/02/ntr_artworks-n5xzeh8prjnixyyp-2yjllq-t500x500_7526524824.jpg">
 <span>No me quiero casar</span>
-<a href="https://open.spotify.com" target="_blank" class="btn-listen">
+<a href="https://open.spotify.com/track/39L3LdlHS3gqB62HPWaJRg?si=NppyjXgAQouCDsdteY7c-A" target="_blank" class="btn-listen">
    ▶ Escuchar
 </a>
 </div>
@@ -278,7 +371,7 @@ text-decoration:none;}
 <div class="artist">
 <img src="z.musica3.jpg">
 <span>Wo oh oh</span>
-<a href="https://open.spotify.com" target="_blank" class="btn-listen">
+<a href="https://open.spotify.com/track/34bgCQVr0Wfuthiv8NeSQO?si=eELPbQDYRgyVCzM7kUqHkw" target="_blank" class="btn-listen">
    ▶ Escuchar
 </a>
 </div>
@@ -319,7 +412,7 @@ text-decoration:none;}
 <img src="spotify1.jpg">
 <h3>Un Verano Sin Ti - Bad Bunny</h3>
 <div class="play-btn" onclick="window.open('https://open.spotify.com/album/3RQQmkQEvNCY4prGKE6oc5')">▶</div>
-<div class="song"><span>Moscow Mule</span><a href="https://open.spotify.com/track/6Xom58OOXk2SoU711L2IXO" target="_blank">▶</a></div>
+<div class="song"><span>Moscow Mule</span><a href="https://open.spotify.com/track/6Xom58OOXk2SoU711L2IXO?si=5rclxvArR1OgQ1Vwp9pN7A" target="_blank">▶</a></div>
 <div class="song"><span>Después de la Playa</span><a href="https://open.spotify.com/track/1IHWl5LamUGEuP4ozKQSXZ" target="_blank">▶</a></div>
 <div class="song"><span>Me Porto Bonito</span><a href="https://open.spotify.com/track/6Sq7ltF9Qa7SNFBsV5Cogx" target="_blank">▶</a></div>
 <div class="song"><span>Tití Me Preguntó</span><a href="https://open.spotify.com/track/1xK59OXxi2TAAAbmZK0kBL" target="_blank">▶</a></div>

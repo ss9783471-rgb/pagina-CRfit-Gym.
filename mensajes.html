@@ -3,312 +3,485 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Soporte | CRFit Gym</title>
+<title>CRFit IA</title>
+
 <style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
 }
+
+/* BODY */
 body{
-background:#0d0d0d;
+background: radial-gradient(circle at top, #1c1c1e, #0b0b0c 75%);
 color:white;
 height:100vh;
 display:flex;
-flex-direction:column;
-}
-/* HEADER */
-header{
-background:#000;
-padding:15px 40px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 5px 20px rgba(0,0,0,.7);
-}
-.logo{
-display:flex;
-align-items:center;
-gap:12px;
-}
-.logo img{
-height:55px;
-}
-nav a{
-color:white;
-margin-left:20px;
-text-decoration:none;
-font-weight:bold;
-}
-nav a:hover{
-color:#1db954;
-}
-/* CHAT AREA */
-.chat-container{
-flex:1;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px;
-}
-/* CHAT BOX */
-.chat-box{
-width:700px;
-height:80vh;
-background:#141414;
-border-radius:20px;
-display:flex;
-flex-direction:column;
-box-shadow:0 25px 60px rgba(0,0,0,.8);
 overflow:hidden;
 }
-/* HEADER CHAT */
-.chat-header{
-background:#111;
-padding:15px;
+
+/* MAIN */
+.main{
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+/* HEADER */
+header{
+padding:16px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-border-bottom:1px solid #222;
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(30px);
+border-bottom:1px solid rgba(255,255,255,0.06);
 }
-.status{
-display:flex;
-align-items:center;
-gap:8px;
+
+header h3{
+font-weight:600;
 }
-.dot{
-width:10px;
-height:10px;
-background:#1db954;
-border-radius:50%;
-}
-.clear{
-background:#1db954;
-border:none;
-padding:6px 12px;
-border-radius:6px;
+
+/* BOTÓN MENU (solo móvil) */
+.menu-btn{
+display:none;
+font-size:18px;
 cursor:pointer;
-font-size:12px;
 }
-/* MENSAJES */
-.messages{
+
+/* CHAT */
+.chat{
 flex:1;
-padding:20px;
 overflow-y:auto;
+padding:20px;
 display:flex;
 flex-direction:column;
-gap:12px;
+gap:14px;
+scroll-behavior:smooth;
 }
-/* BURBUJAS */
+
+/* MENSAJES */
 .msg{
 max-width:75%;
-padding:10px 14px;
-border-radius:14px;
-font-size:14px;
+padding:14px 18px;
+border-radius:22px;
 line-height:1.4;
+animation:fade .25s ease;
 }
+
+/* BOT */
 .bot{
-background:#2a2a2a;
-align-self:flex-start;
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.05);
 }
+
+/* USER */
 .user{
-background:#1db954;
-color:black;
+background:linear-gradient(135deg,#22c55e,#16a34a);
 align-self:flex-end;
+box-shadow:0 6px 20px rgba(34,197,94,0.3);
 }
-.typing{
-font-size:12px;
-color:#aaa;
-font-style:italic;
-}
+
 /* INPUT */
-.chat-input{
+.input-area{
 display:flex;
-border-top:1px solid #222;
+gap:10px;
+padding:15px;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(25px);
+border-top:1px solid rgba(255,255,255,0.05);
 }
-.chat-input input{
+
+input{
 flex:1;
 padding:14px;
+border-radius:20px;
 border:none;
-background:#1c1c1c;
+background:rgba(255,255,255,0.07);
 color:white;
 outline:none;
 }
-.chat-input button{
-background:#1db954;
+
+button{
+padding:0 18px;
 border:none;
-padding:0 25px;
-font-weight:bold;
+border-radius:20px;
+background:linear-gradient(135deg,#22c55e,#16a34a);
+color:white;
+font-weight:600;
 cursor:pointer;
+transition:.2s;
 }
-/* PREGUNTAS RAPIDAS */
-.quick{
-padding:10px;
+
+button:hover{
+transform:scale(1.05);
+}
+
+/* SIDEBAR */
+.sidebar{
+width:250px;
+background:rgba(15,15,15,0.85);
+backdrop-filter:blur(30px);
+padding:25px 20px;
 display:flex;
-flex-wrap:wrap;
-gap:8px;
-border-top:1px solid #222;
-background:#111;
+flex-direction:column;
+gap:15px;
+border-left:1px solid rgba(255,255,255,0.06);
+transition:.3s;
 }
-.quick button{
-padding:6px 10px;
-font-size:12px;
-border-radius:8px;
+
+.sidebar h2{
+font-size:18px;
+margin-bottom:10px;
+}
+
+.sidebar button,
+.sidebar a{
+text-decoration:none;
+background:rgba(255,255,255,0.05);
+padding:10px;
+border-radius:12px;
 border:none;
-background:#1db954;
+color:#ddd;
+font-size:14px;
 cursor:pointer;
+transition:.2s;
+text-align:left;
 }
-/* FOOTER */
-.chat-footer{
-font-size:11px;
-color:#777;
-text-align:center;
-padding:5px;
+
+.sidebar button:hover,
+.sidebar a:hover{
+background:rgba(34,197,94,0.2);
+color:white;
 }
-/* RESPONSIVE */
-@media(max-width:700px){
-.chat-box{
-width:100%;
+
+/* OCULTAR SIDEBAR EN MÓVIL */
+@media(max-width:768px){
+.sidebar{
+position:fixed;
+right:-260px;
+top:0;
 height:100%;
-border-radius:0;
+z-index:10;
 }
+
+.sidebar.active{
+right:0;
+}
+
+.menu-btn{
+display:block;
+}
+}
+
+/* ANIM */
+@keyframes fade{
+from{opacity:0; transform:translateY(8px);}
+to{opacity:1;}
 }
 </style>
 </head>
+
 <body>
+
+<div class="main">
+
 <header>
-<div class="logo">
-<img src="logoCRfit.png">
-<h3>CRFit Soporte</h3>
-</div>
-<nav>
-<a href="pagina-inicio.html">Inicio</a>
-<a href="catalogo.html">Catálogo</a>
-</nav>
+<h3>CRFit IA</h3>
+<span class="menu-btn" onclick="toggleMenu()">☰</span>
 </header>
-<div class="chat-container">
-<div class="chat-box">
-<div class="chat-header">
-<div class="status">
-<div class="dot"></div>
-<span>Asistente CRFit en línea</span>
-</div>
-<button class="clear" onclick="clearChat()">Limpiar chat</button>
-</div>
-<div class="messages" id="messages"></div>
-<div class="quick">
-</div>
-<div class="chat-input">
-<input type="text" id="input" placeholder="Escribe tu mensaje...">
+
+<div class="chat" id="chat"></div>
+
+<div class="input-area">
+<input id="input" placeholder="Escribe tu rutina o pregunta...">
 <button onclick="send()">Enviar</button>
 </div>
-<div class="chat-footer">
-Soporte automático CRFit Gym
+
 </div>
+
+<!-- SIDEBAR DERECHA -->
+<div class="sidebar" id="sidebar">
+<h2>Menú</h2>
+
+<button onclick="newChat()">🆕 Nuevo Chat</button>
+<button onclick="clearChat()">🧹 Limpiar Chat</button>
+
+<a href="index.html">🏠 Inicio</a>
+<a href="rutinas.html"> Rutinas</a>
+<a href="productos.html">🛒 Productos</a>
+
 </div>
-</div>
+
 <script>
-const input=document.getElementById("input");
-const messages=document.getElementById("messages");
-let history=JSON.parse(localStorage.getItem("chat")) || [];
-history.forEach(m=>{
-addMessage(m.text,m.type,false);
-});
-if(history.length===0){
-addMessage("Hola 👋 Bienvenido a CRFit Gym. Puedo ayudarte con productos, rutinas, envíos, pagos o recomendaciones de entrenamiento.","bot");
-}
-input.addEventListener("keypress",e=>{
-if(e.key==="Enter") send();
-});
-function quick(text){
-input.value=text;
-send();
-}
-function send(){
-const text=input.value.trim();
-if(text==="") return;
-addMessage(text,"user");
-input.value="";
-typing();
-setTimeout(()=>{
-botReply(text.toLowerCase());
-},900);
-}
-function addMessage(text,type,save=true){
-const div=document.createElement("div");
-div.className="msg "+type;
-div.innerHTML=text;
-messages.appendChild(div);
-messages.scrollTop=messages.scrollHeight;
-if(save){
-history.push({text,type});
-localStorage.setItem("chat",JSON.stringify(history));
-}
-}
-function typing(){
-const div=document.createElement("div");
-div.className="msg bot typing";
-div.id="typing";
-div.innerHTML="Escribiendo...";
-messages.appendChild(div);
-messages.scrollTop=messages.scrollHeight;
-}
-function botReply(text){
-document.getElementById("typing").remove();
-let reply="Gracias por tu mensaje. ¿Podrías dar más detalles?";
-/* RESPUESTAS INTELIGENTES */
-if(text.includes("precio") || text.includes("cuanto")){
-reply="Puedes ver todos los precios dentro del catálogo de máquinas en nuestra página. Ahí encontrarás equipos para entrenamiento profesional.";
-}
-else if(text.includes("envio") || text.includes("entrega")){
-reply="Realizamos envíos a todo Costa Rica. El tiempo de entrega normalmente es de 3 a 5 días hábiles.";
-}
-else if(text.includes("maquina") || text.includes("producto")){
-reply="En CRFit tenemos máquinas como caminadoras, racks de pesas, bancos de ejercicio y equipo profesional para gimnasio.";
-}
-else if(text.includes("rutina")){
-reply="Te recomendamos combinar ejercicios de fuerza con cardio. Puedes visitar nuestra sección de rutinas dentro de la web.";
-}
-else if(text.includes("musica")){
-reply="Nuestra página también tiene una sección de música para entrenar con artistas populares para mantener tu motivación.";
-}
-else if(text.includes("pago")){
-reply="Aceptamos pagos con tarjeta y métodos seguros directamente desde nuestra página de pago.";
-}
-else if(text.includes("garantia")){
-reply="Todos nuestros productos tienen garantía de 12 meses contra defectos de fábrica.";
-}
-else if(text.includes("hola") || text.includes("buenas")){
-reply="¡Hola! 👋 Estoy aquí para ayudarte con cualquier duda sobre CRFit.";
-}
-else if(text.includes("contacto")){
-reply="Puedes contactarnos también por correo o mediante este chat para soporte inmediato.";
-}
-else if(text.includes("gracias")){
-reply="¡Con gusto! Si necesitas más ayuda solo dime.";
-}
-else if(text.includes("que ondaa")){
-reply="Que ondaa en que podemos ayudarte? 😊  .";
-}
-else if(text.includes("ropa")){
-reply="Estamos trabajando en poner un catalogo de ropa, por el momento no lo tenemos.";
-}
-else if(text.includes("creador")){
-reply="El creador de la pagina web se llama Sebastian Salazar.";
-}
-else if(text.includes("inicio de sesion")){
-reply="Por el momento estamos mejorando mas el inicio de sesion para que sea seguro.";
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
+
+/* =========================
+  🧠 MEMORIA GLOBAL
+========================= */
+let memory = JSON.parse(localStorage.getItem("memory")) || {
+name: "",
+goal: ""
+};
+
+/* =========================
+  💬 CHATS
+========================= */
+let chats = JSON.parse(localStorage.getItem("chats")) || [];
+let currentChat = null;
+
+/* CREAR CHAT */
+function newChat(){
+currentChat = {
+id: Date.now(),
+messages: []
+};
+chats.push(currentChat);
+saveChats();
+renderChat();
+addMessage("🆕 Nuevo chat iniciado","bot");
 }
 
-addMessage(reply,"bot");
+/* GUARDAR CHATS */
+function saveChats(){
+localStorage.setItem("chats", JSON.stringify(chats));
 }
+
+/* RENDER CHAT */
+function renderChat(){
+chat.innerHTML="";
+if(!currentChat) return;
+
+currentChat.messages.forEach(m=>{
+add(m.text, m.type, false);
+});
+}
+
+/* =========================
+  ✍️ MENSAJES
+========================= */
+function add(text,type,save=true){
+const div = document.createElement("div");
+div.className = "msg " + type;
+div.innerHTML = text;
+chat.appendChild(div);
+chat.scrollTop = chat.scrollHeight;
+
+if(save && currentChat){
+currentChat.messages.push({text,type});
+saveChats();
+}
+}
+
+/* ANIMACIÓN ESCRIBIR */
+function typeMessage(text){
+const div = document.createElement("div");
+div.className="msg bot";
+chat.appendChild(div);
+
+let words = text.split(" ");
+let i=0;
+
+let interval = setInterval(()=>{
+div.innerHTML += words[i] + " ";
+chat.scrollTop = chat.scrollHeight;
+i++;
+
+if(i>=words.length) clearInterval(interval);
+
+},40);
+
+if(currentChat){
+currentChat.messages.push({text, type:"bot"});
+saveChats();
+}
+}
+
+/* =========================
+  🚀 ENVIAR
+========================= */
+function send(){
+const text = input.value.trim();
+if(!text) return;
+
+add(text,"user");
+input.value="";
+
+setTimeout(()=>{
+reply(text.toLowerCase());
+},500);
+}
+
+/* =========================
+  🧠 IA
+========================= */
+function reply(t){
+
+/* ---- MEMORIA ---- */
+if(t.includes("me llamo")){
+memory.name = t.split("me llamo")[1].trim();
+saveMemory();
+return typeMessage(` Mucho gusto ${memory.name}, voy a ayudarte a mejorar físicamente`);
+}
+
+if(t.includes("quiero") && t.includes("musculo")){
+memory.goal="musculo";
+saveMemory();
+return typeMessage(" Perfecto, vamos a enfocarnos en hipertrofia, fuerza y buena alimentación");
+}
+
+if(t.includes("bajar")){
+memory.goal="bajar";
+saveMemory();
+return typeMessage("🔥 Vamos a trabajar en quema de grasa con cardio y control de dieta");
+}
+
+/* ---- RESPUESTAS ---- */
+let nombre = memory.name ? memory.name : "bro";
+
+if(t.includes("hola")){
+return typeMessage(` Hola ${nombre}, ¿qué quieres entrenar hoy?`);
+}
+if(t.includes("Holaa")){
+return typeMessage("Holaa en que te ayudo??");
+}
+if(t.includes("ondaa")){
+return typeMessage("Que ondaaaaaa ");
+}
+
+if(t.includes("diseño")){
+return typeMessage("Me diseño Sebastian Salazar, el creador del sitio web CRfit");
+}
+
+if(t.includes("que hago hoy")){
+if(memory.goal==="musculo"){
+return typeMessage("🔥 Hoy te recomiendo una rutina de fuerza: pecho + tríceps, con peso alto y buena técnica");
+}
+if(memory.goal==="bajar"){
+return typeMessage(" Hoy toca cardio + rutina ligera para quemar grasa y mantener músculo");
+}
+return typeMessage(" Podemos hacer una rutina completa, dime qué quieres entrenar");
+}
+
+if(t.includes("pecho")){
+return typeMessage("🔥 Haz press banca, inclinado y aperturas. Concéntrate en controlar cada repetición y llegar cerca del fallo");
+}
+
+if(t.includes("pierna")){
+return typeMessage(" Sentadilla, prensa y peso muerto. Pierna fuerte = cuerpo fuerte");
+}
+
+if(t.includes("dieta")){
+if(memory.goal==="musculo"){
+return typeMessage("🍗 Come más proteína, carbohidratos y mantén un superávit calórico");
+}
+if(memory.goal==="bajar"){
+return typeMessage("🥗 Déficit calórico, proteína alta y evita azúcares");
+}
+return typeMessage("🥗 Mantén una dieta balanceada con proteína, grasas sanas y carbohidratos");
+}
+
+if(t.includes("motivacion")){
+return typeMessage("🔥 No necesitas motivación todos los días, necesitas disciplina constante");
+}
+if(t.includes("verdad")){
+return typeMessage("Si te lo digo de verdad, soy una IA diseñada para darte info de rutinas y de salud");
+}
+if(t.includes("creador")){
+return typeMessage("El creador del sitio web CRfit es Sebastian Salazar");
+}
+if(t.includes("entrenador")){
+return typeMessage("Una de nuestras entrenadoras es Angie Aguilera Diaz, proximamente vamos a tener mas info sobre nuestros entrenadores");
+}
+if(t.includes("Empecemos")){
+return typeMessage("Perfecto, entonces dime con que quieres empezar y te doy la info");
+}
+if(t.includes("15")){
+return typeMessage("Si tienes 15 años entonces las rutinas intermedias te pueden servir, ve a la parte de rutinas y busca la info");
+}
+if(t.includes("20")){
+return typeMessage("Si tienes 20 años entonces ya puedes tener mas experincia en ejercicios, te recomendamos llevar algunos ejercicios de la parte avanzada de rutinas");
+}
+//chistes
+if(t.includes("pez")){
+return typeMessage(" No estoy diseñado para chistes, pero dimelo para no quedarme con la duda");
+}
+if(t.includes("peces")){
+return typeMessage(" Mejor ve a entrenar en ves de estar diciendo estupideces");
+}
+if(t.includes("jaja")){
+return typeMessage(" Que bueno que te rias, pero ahora es hora de entrenar");
+}
+if(t.includes("creatina")){
+return typeMessage(" Si quieres creatina en nuestra tienda tenemos a la venta diferentes tipos de creatina");
+}
+if(t.includes("no me gusta")){
+return typeMessage(" Estamos trabajando en hacer mejor el sitio web CRfit, en un tiempo ya va a tener mejores cosas");
+}
+if(t.includes("la mejor parte")){
+return typeMessage(" La mejor parte del sitio web depende de tus preferencias");
+}
+if(t.includes("compre")){
+return typeMessage(" Si no te ha llegado lo que compraste contacta con alguien que este a cargo de CRfit, nos puedes encontrar en Cartago");
+}
+if(t.includes("que puedo comer")){
+return typeMessage("Comer saludable no tiene que ser complicado. Te dejo ideas 🥗 Opciones saludables para el día: Desayuno • Avena con frutas (banano, fresas, manzana) • Huevos con pan integral              --      Almuerzo • Arroz + pollo a la plancha + ensalada • Pescado + vegetales + papa o yuca "
+);
+}
+
+if(t.includes("gracias")){
+return typeMessage(" Con gusto, te puedo ayudar en otra cosa?");
+}
+
+
+/* DEFAULT */
+return typeMessage("🤔 No entendí del todo, pero puedo ayudarte con rutinas, dieta o entrenamiento");
+}
+
+/* =========================
+  💾 MEMORIA
+========================= */
+function saveMemory(){
+localStorage.setItem("memory", JSON.stringify(memory));
+}
+
+/* =========================
+  🧹 LIMPIAR
+========================= */
 function clearChat(){
-localStorage.removeItem("chat");
-history=[];
-messages.innerHTML="";
-addMessage("Chat reiniciado. ¿En qué puedo ayudarte?","bot");
+if(currentChat){
+currentChat.messages=[];
+saveChats();
+renderChat();
+}
+}
+
+/* =========================
+  ⌨️ ENTER
+========================= */
+input.addEventListener("keypress", e=>{
+if(e.key==="Enter") send();
+});
+
+/* =========================
+  🔥 INICIO
+========================= */
+if(chats.length === 0){
+newChat();
+}else{
+currentChat = chats[chats.length-1];
+renderChat();
+}
+
+if(memory.name){
+typeMessage(` Bienvenido de nuevo ${memory.name}!!`);
+}else{
+typeMessage("🔥 Bienvenido a CRFit IA");
 }
 </script>
+
 </body>
 </html>

@@ -4,395 +4,511 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Productos | CRFit Gym</title>
+
 <style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
 }
+
 body{
-background:#0f0f0f;
-color:#fff;
+background: radial-gradient(circle at top,#1c1c1e,#0a0a0a 80%);
+color:white;
 }
+
 /* HEADER */
 header{
-background:#000;
-padding:15px 30px;
+position:sticky;
+top:0;
+z-index:100;
+background:rgba(20,20,20,.7);
+backdrop-filter:blur(30px);
+padding:15px;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.top{
 display:flex;
 justify-content:space-between;
 align-items:center;
-box-shadow:0 5px 25px rgba(0,0,0,.6);
 }
+
 .brand{
 display:flex;
 align-items:center;
-gap:12px;
+gap:10px;
 }
+
 .brand img{
-height:55px;
+height:40px;
 }
-nav a{
-color:#fff;
-margin-left:20px;
+
+.menu a{
+margin-left:15px;
 text-decoration:none;
-font-weight:bold;
-opacity:.9;
+color:#ccc;
+font-size:14px;
 }
-nav a:hover{
-color:#1db954;
+
+.menu a:hover{
+color:#22c55e;
 }
-/* BOTON CARRITO */
-.cart-btn{
-position:fixed;
-top:95px;
-right:25px;
-background:linear-gradient(135deg,#1db954,#1ed760);
-color:#000;
-padding:14px 20px;
-border-radius:50px;
-font-weight:bold;
-cursor:pointer;
-z-index:200;
-box-shadow:0 15px 35px rgba(29,185,84,.4);
-transition:.3s;
-display:flex;
-align-items:center;
-gap:8px;
-}
-.cart-btn:hover{
-transform:scale(1.08);
-box-shadow:0 20px 45px rgba(29,185,84,.6);
-}
+
 /* BUSCADOR */
 .search-bar{
-background:#111;
-padding:30px;
-display:flex;
-justify-content:center;
+margin-top:12px;
 }
+
 .search-bar input{
-width:60%;
-padding:15px;
-font-size:16px;
+width:100%;
+padding:14px;
+border-radius:18px;
 border:none;
-border-radius:10px;
-background:#1b1b1b;
+background:rgba(255,255,255,0.06);
 color:white;
 outline:none;
 }
-/* CONTENEDOR */
-.container{
-max-width:1300px;
-margin:auto;
-padding:35px;
-}
-/* CATEGORIAS */
+
+/* CATEGORÍAS */
 .categories{
 display:flex;
-gap:15px;
-margin-bottom:35px;
-flex-wrap:wrap;
+gap:10px;
+margin-top:12px;
+overflow-x:auto;
 }
+
 .categories button{
-padding:11px 24px;
+padding:10px 18px;
+border-radius:999px;
 border:none;
-border-radius:25px;
-background:#1c1c1c;
-color:white;
+background:rgba(255,255,255,0.06);
+color:#ccc;
+font-weight:600;
 cursor:pointer;
-font-weight:bold;
-transition:.3s;
 }
+
 .categories button.active,
 .categories button:hover{
-background:#1db954;
-color:black;
+background:linear-gradient(135deg,#22c55e,#16a34a);
+color:white;
 }
-/* GRID PRODUCTOS */
+
+/* CARRITO FLOAT */
+.cart-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:linear-gradient(135deg,#22c55e,#16a34a);
+padding:14px 18px;
+border-radius:999px;
+font-weight:600;
+cursor:pointer;
+box-shadow:0 10px 30px rgba(34,197,94,.4);
+z-index:200;
+}
+
+/* GRID */
+.container{
+padding:25px;
+max-width:1200px;
+margin:auto;
+}
+
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
 gap:28px;
 }
-/* TARJETA PRODUCTO */
+
+/* CARD */
 .product{
-background:#161616;
-border-radius:16px;
-overflow:hidden;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(25px);
+border-radius:22px;
+padding:15px;
+border:1px solid rgba(255,255,255,0.08);
 display:flex;
 flex-direction:column;
-transition:.35s;
-box-shadow:0 10px 25px rgba(0,0,0,.5);
+transition:.3s;
 }
+
 .product:hover{
-transform:translateY(-8px) scale(1.02);
-box-shadow:0 18px 40px rgba(0,0,0,.8);
+transform:translateY(-6px) scale(1.02);
 }
+
 .product img{
 width:100%;
-height:210px;
+height:140px;
 object-fit:contain;
-background:#0b0b0b;
-padding:12px;
+margin-bottom:10px;
 }
-.product-info{
-padding:18px;
-display:flex;
-flex-direction:column;
-flex:1;
-}
-.product-info h3{
-font-size:18px;
-margin-bottom:6px;
-}
-.product-info p{
-font-size:13px;
-color:#9a9a9a;
-margin-bottom:12px;
-}
+
 .price{
-font-size:20px;
+color:#22c55e;
 font-weight:bold;
-margin-bottom:14px;
-color:#1ed760;
+margin-bottom:10px;
 }
+
 .product button{
-margin-top:auto;
-padding:13px;
-background:linear-gradient(135deg,#1db954,#1ed760);
-color:#000;
+padding:10px;
 border:none;
+border-radius:12px;
+background:linear-gradient(135deg,#22c55e,#16a34a);
+color:white;
 cursor:pointer;
-font-weight:bold;
-border-radius:8px;
-transition:.25s;
 }
-.product button:hover{
-transform:scale(1.05);
-box-shadow:0 8px 20px rgba(29,185,84,.5);
+
+.product button.disabled{
+background:#333;
+color:#777;
+cursor:not-allowed;
 }
-/* CARRITO */
+/* PANEL CARRITO PRO */
 .cart{
 position:fixed;
 top:0;
-right:-380px;
-width:360px;
-height:100vh;
-background:#111;
-padding:25px;
-transition:.35s;
+right:-100%;
+width:100%;
+max-width:380px;
+height:100%;
+background:rgba(20,20,20,0.85);
+backdrop-filter:blur(30px);
+padding:20px;
+transition:.4s cubic-bezier(.22,.61,.36,1);
 z-index:300;
-overflow-y:auto;
-box-shadow:-10px 0 30px rgba(0,0,0,.7);
+overflow:auto;
+border-left:1px solid rgba(255,255,255,0.08);
+box-shadow:-10px 0 40px rgba(0,0,0,.8);
 }
+
 .cart.active{
 right:0;
 }
+
 .cart h2{
-margin-bottom:20px;
+margin-bottom:15px;
+font-weight:600;
+letter-spacing:.5px;
 }
+
+/* ITEM */
 .cart-item{
 display:flex;
 justify-content:space-between;
 align-items:center;
-border-bottom:1px solid #333;
 padding:12px 0;
+border-bottom:1px solid rgba(255,255,255,0.05);
 font-size:14px;
+animation:fadeUp .3s ease;
 }
-.cart-item button{
-background:none;
+
+/* CONTROLES */
+.cart-controls{
+display:flex;
+gap:6px;
+}
+
+/* BOTONES + - */
+.cart-controls button{
+width:34px;
+height:34px;
 border:none;
-color:#ff5c5c;
-cursor:pointer;
+border-radius:12px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
 font-size:18px;
-}
-.cart-total{
-margin:20px 0;
-font-size:20px;
-font-weight:bold;
-}
-.cart .pay{
-width:100%;
-padding:15px;
-background:#1db954;
-border:none;
-font-weight:bold;
+font-weight:600;
+
+color:white;
 cursor:pointer;
-border-radius:8px;
+
+/* GLASS */
+background:rgba(255,255,255,0.06);
+backdrop-filter:blur(10px);
+
+/* profundidad */
+box-shadow:
+0 4px 12px rgba(0,0,0,.4),
+inset 0 1px 0 rgba(255,255,255,0.1);
+
+transition:.25s;
 }
-/* FOOTER */
-footer{
-margin-top:70px;
-background:#000;
-color:#aaa;
-padding:25px;
-text-align:center;
+/* HOVER */
+.cart-controls button:hover{
+transform:scale(1.12);
+
+/* verde CRFit */
+background:linear-gradient(135deg,#22c55e,#16a34a);
+
+box-shadow:
+0 6px 18px rgba(34,197,94,.5),
+0 0 10px rgba(34,197,94,.4);
+}
+/* CLICK (efecto iOS) */
+.cart-controls button:active{
+transform:scale(0.9);
+}
+.cart-controls button:hover{
+background:linear-gradient(135deg,#22c55e,#16a34a);
+transform:scale(1.1);
+box-shadow:0 5px 15px rgba(34,197,94,.4);
+}
+
+/* TOTAL */
+.cart h3{
+margin-top:20px;
+font-size:20px;
+color:#22c55e;
+}
+
+/* BOTÓN PAGAR PRO */
+.cart button{
+margin-top:20px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:16px;
+font-weight:600;
+font-size:15px;
+cursor:pointer;
+
+background:linear-gradient(135deg,#22c55e,#16a34a);
+color:white;
+
+box-shadow:0 10px 25px rgba(34,197,94,.4);
+transition:.3s;
+}
+
+.cart button:hover{
+transform:scale(1.05);
+box-shadow:0 15px 35px rgba(34,197,94,.6);
+}
+
+/* EFECTO GLASS EXTRA */
+.cart::before{
+content:"";
+position:absolute;
+inset:0;
+border-radius:0;
+background:linear-gradient(
+120deg,
+rgba(255,255,255,0.15),
+transparent 40%
+);
+opacity:.1;
+pointer-events:none;
+}
+
+
+/* RESPONSIVE */
+@media(max-width:600px){
+.products{
+grid-template-columns:repeat(2,1fr);
+}
 }
 </style>
 </head>
+
 <body>
+
 <header>
+<div class="top">
 <div class="brand">
 <img src="logoCRfit.png">
-<h2>CRFit Gym</h2>
+<h3>CRFit</h3>
 </div>
-<nav>
-<a href="pagina-inicio.html">Inicio</a>
-<a href="tiendaRopa">Tienda de Ropa</a>
-<a href="productos.html">Productos</a>
-<a href="catalogo.html">Máquinas</a>
-</nav>
-</header>
-<div class="cart-btn" onclick="toggleCart()">
-🛒 Carrito (<span id="count">0</span>)
+
+<div class="menu">
+<a href="index.html">Inicio</a>
+<a href="rutinas.html">Rutinas</a>
+<a href="maquinas.html">Máquinas</a>
 </div>
+</div>
+
 <div class="search-bar">
-<input type="text" placeholder="🔍 Buscar productos..." oninput="buscar(this.value)">
+<input type="text" placeholder="🔍 Buscar..." oninput="buscar(this.value)">
 </div>
-<main class="container">
+
 <div class="categories">
 <button class="active" onclick="filtrar('todos',this)">Ver todo</button>
 <button onclick="filtrar('suplementos',this)">Suplementos</button>
-<button onclick="filtrar('galletas',this)">Galletas</button>
-<button onclick="filtrar('fit',this)">Comida Fit</button>
+<button onclick="filtrar('alimentos',this)">Alimentos</button>
+<button onclick="filtrar('bebidas',this)">Bebidas</button>
 </div>
+</header>
+
+<div class="cart-btn" onclick="toggleCart()">
+🛒 (<span id="count">0</span>)
+</div>
+
+<main class="container">
 <div class="products" id="lista"></div>
 </main>
+
 <div class="cart" id="cart">
-<h2>🛒 Tu carrito</h2>
+<h2>Carrito</h2>
 <div id="cartItems"></div>
-<div class="cart-total">Total: ₡<span id="total">0</span></div>
-<button class="pay" onclick="irAPago()">Ir a pagar</button>
+<h3>Total: ₡<span id="total">0</span></h3>
+<button onclick="irAPago()">Ir a pagar</button>
 </div>
-<footer>© 2026 CRFit gym
-</footer>
+
 <script>
-const productos = [
-{nombre:"Proteína Whey", categoria:"suplementos", precio:32000, img:"v_proteina.jpg"},
-{nombre:"Proteína Dos pinos", categoria:"suplementos", precio:28000, img:"v_proteinaDospinos.webp"},
-{nombre:"Creatina", categoria:"suplementos", precio:18000, img:"img/creatina.jpg"},
-{nombre:"Creatina Plus", categoria:"suplementos", precio:20000, img:"v_productos3.jpg"},
-{nombre:"Galletas Fit", categoria:"galletas", precio:3500, img:"https://m.media-amazon.com/images/I/71SE-CKOJYL.jpg"},
-{nombre:"Galletas nutri snacks", categoria:"galletas", precio:3500, img:"v_galletasFit1.png"},
-{nombre:"Galletas nutri snacks", categoria:"galletas", precio:3500, img:"v_galletasFit2.png"},
-{nombre:"Galletas nutri snacks", categoria:"galletas", precio:3500, img:"v_galletasFit3.webp"},
-{nombre:"Chocolate fit", categoria:"galletas", precio:3500, img:"v_chocolateFit.jpg"},
-{nombre:"Barra Energética", categoria:"fit", precio:2000, img:"img/barra.jpg"},
-{nombre:"Granola", categoria:"fit", precio:12000, img:"v_granola.webp"},
-{nombre:"bebida de frutas", categoria:"fit", precio:32000, img:"img/proteina1.jpg"},
-{nombre:"creatina x3", categoria:"suplementos", precio:32000, img:"img/proteina1.jpg"},
-{nombre:"Proteina vainilla", categoria:"suplementos", precio:28000, img:"img/proteina2.jpg"},
-{nombre:"Creatina x4", categoria:"suplementos", precio:18000, img:"v_creatinaX4.jpeg"},
-{nombre:"proteina vainilla", categoria:"suplementos", precio:20000, img:"img/proteina1.jpg"},
-{nombre:"Barra Tosh chocolate", categoria:"fit", precio:2000, img:"v_barraTosh.png"},
-{nombre:"Barra Tosh zero fresa", categoria:"fit", precio:2000, img:"v_barraTosh2.png"},
-{nombre:"Barra Energética frutas", categoria:"fit", precio:2000, img:"v_barraTosh3.png"},
-{nombre:"Barra Energética frutas", categoria:"fit", precio:2000, img:"v_barraTosh4.png"},
-{nombre:"Barra Energética frutas", categoria:"fit", precio:2000, img:"v_barraTosh5.png"},
-{nombre:"bebida suerox", categoria:"fit", precio:12000, img:"v_bebida suerox1.webp"},
-{nombre:"bebida suerox", categoria:"fit", precio:32000, img:"v_bebida suerox2.webp"}
+
+const productos = [/* TODOS TUS PRODUCTOS EXACTOS */
+{nombre:"Proteína Whey", categoria:"suplementos", precio:32000, img:"v_proteina.jpg", stock:40},
+{nombre:"Proteína Dos pinos", categoria:"suplementos", precio:28000, img:"v_proteinaDospinos.webp", stock:40},
+{nombre:"Barras de proteina fresa", categoria:"suplementos", precio:18000, img:"v_barra bar.webp", stock:10},
+{nombre:"Creatina Plus", categoria:"suplementos", precio:20000, img:"v_productos3.jpg", stock:8},
+{nombre:"Galletas Fit", categoria:"galletas", precio:3500, img:"https://m.media-amazon.com/images/I/71SE-CKOJYL.jpg", stock:40},
+{nombre:"Galletas nutri snacks", categoria:"galletas", precio:3500, img:"v_galletasFit1.png", stock:40},
+{nombre:"Galletas nutri snacks", categoria:"galletas", precio:3500, img:"v_galletasFit2.png", stock:40},
+{nombre:"Galletas nutri snacks", categoria:"galletas", precio:3500, img:"v_galletasFit3.webp", stock:40},
+{nombre:"Chocolate fit", categoria:"galletas", precio:3500, img:"v_chocolateFit.jpg", stock:40},
+{nombre:"Barra Energética", categoria:"fit", precio:2000, img:"img/barra.jpg", stock:40},
+{nombre:"Granola", categoria:"fit", precio:12000, img:"v_granola.webp", stock:40},
+{nombre:"FitNess cereal chocolate", categoria:"fit", precio:32000, img:"v_fitNess.png", stock:20},
+{nombre:"FitNess cereal vainilla", categoria:"suplementos", precio:32000, img:"v_fitNess1.png", stock:20},
+{nombre:"Barras de proteina", categoria:"suplementos", precio:28000, img:"v_barra de granola.webp", stock:40},
+{nombre:"Creatina x4", categoria:"suplementos", precio:18000, img:"v_creatinaX4.jpeg", stock:40},
+{nombre:"Barra de proteina", categoria:"suplementos", precio:20000, img:"v_barra de protreina.jpeg", stock:40},
+{nombre:"Barra Tosh chocolate", categoria:"fit", precio:2000, img:"v_barraTosh.png", stock:40},
+{nombre:"Barra Tosh zero fresa", categoria:"fit", precio:2000, img:"v_barraTosh2.png", stock:40},
+{nombre:"Barra Energética frutas", categoria:"fit", precio:2000, img:"v_barraTosh3.png", stock:40},
+{nombre:"Barra Energética frutas", categoria:"fit", precio:2000, img:"v_barraTosh4.png", stock:40},
+{nombre:"Barra Energética frutas", categoria:"fit", precio:2000, img:"v_barraTosh5.png", stock:40},
+{nombre:"bebida suerox", categoria:"fit", precio:12000, img:"v_bebida suerox1.webp", stock:40},
+{nombre:"bebida suerox", categoria:"fit", precio:32000, img:"v_bebida suerox2.webp", stock:10},
+{nombre:"Fit Frida banana", categoria:"fit", precio:12000, img:"v_fit.jpg", stock:10},
+{nombre:"bebida suerox", categoria:"fit", precio:32000, img:"", stock:40}
 ];
-let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
-const lista = document.getElementById("lista");
-const cartItems = document.getElementById("cartItems");
-const total = document.getElementById("total");
-const count = document.getElementById("count");
+
+let carrito=[];
+
+/* RENDER */
 function render(arr){
 lista.innerHTML="";
 arr.forEach((p,i)=>{
 lista.innerHTML+=`
 <div class="product">
-<img src="${p.img}">
-<div class="product-info">
+<img src="${p.img || 'https://via.placeholder.com/150'}">
 <h3>${p.nombre}</h3>
-<p>Producto premium para entrenamiento</p>
 <div class="price">₡${p.precio.toLocaleString()}</div>
-<button onclick="agregar(${productos.indexOf(p)})">
-Agregar al carrito
+<button ${p.stock<=0?"class='disabled'":""} onclick="agregar(${i})">
+${p.stock<=0?"Agotado":"Agregar"}
 </button>
-</div>
-</div>
-`;
+</div>`;
 });
 }
-/* AGREGAR PRODUCTO */
+
+/* AGREGAR SIN RECARGAR */
 function agregar(i){
-const prod = productos[i];
-const existente = carrito.find(p=>p.nombre===prod.nombre);
-if(existente){
-existente.cantidad++;
-}else{
-carrito.push({...prod, cantidad:1});
-}
-guardar();
-}
-/* SUMAR CANTIDAD */
-function sumar(i){
-carrito[i].cantidad++;
-guardar();
-}
-/* RESTAR CANTIDAD */
-function restar(i){
-carrito[i].cantidad--;
-if(carrito[i].cantidad<=0){
-carrito.splice(i,1);
-}
-guardar();
-}
-function guardar(){
-sessionStorage.setItem("carrito",JSON.stringify(carrito));
+const p=productos[i];
+if(p.stock<=0)return;
+
+p.stock--;
+
+let ex=carrito.find(x=>x.nombre===p.nombre);
+if(ex){ex.cantidad++;}
+else{carrito.push({...p,cantidad:1});}
+
 actualizarCarrito();
+render(productos);
 }
-/* ACTUALIZAR CARRITO */
+
+/* CARRITO */
 function actualizarCarrito(){
+let total=0, count=0;
 cartItems.innerHTML="";
-let suma=0;
-let cantidadTotal=0;
+
 carrito.forEach((p,i)=>{
-suma += p.precio * p.cantidad;
-cantidadTotal += p.cantidad;
+total+=p.precio*p.cantidad;
+count+=p.cantidad;
+
 cartItems.innerHTML+=`
 <div class="cart-item">
-<span>
-${p.nombre} x${p.cantidad}
-</span>
-<div>
-<button onclick="restar(${i})">➖</button>
-<button onclick="sumar(${i})">➕</button>
+<span>${p.nombre} x${p.cantidad}</span>
+<div class="cart-controls">
+<button onclick="restar(${i})">-</button>
+<button onclick="sumar(${i})">+</button>
 </div>
-</div>
-`;
+</div>`;
 });
-total.textContent = suma.toLocaleString();
-count.textContent = cantidadTotal;
+
+/* 🔥 GUARDAR PARA OTRA PÁGINA */
+sessionStorage.setItem("carrito", JSON.stringify(carrito));
+
+document.getElementById("total").textContent=total.toLocaleString();
+document.getElementById("count").textContent=count;
 }
-function toggleCart(){
-document.getElementById("cart").classList.toggle("active");
-}
-function filtrar(cat,btn){
-document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
-btn.classList.add("active");
-if(cat==="todos"){
+function sumar(i){
+if(productos[i].stock<=0) return;
+
+carrito[i].cantidad++;
+productos[i].stock--;
+
+actualizarCarrito();
 render(productos);
-}else{
-render(productos.filter(p=>p.categoria===cat));
 }
+
+function restar(i){
+carrito[i].cantidad--;
+
+if(carrito[i].cantidad <= 0){
+carrito.splice(i,1);
 }
+
+actualizarCarrito();
+render(productos);
+}
+function irAPago(){
+if(carrito.length === 0){
+alert("El carrito está vacío");
+return;
+}
+
+/* 🔥 GUARDAR ANTES DE IR */
+sessionStorage.setItem("carrito", JSON.stringify(carrito));
+
+window.location.href="carrito.html";
+}
+
+
+/* BUSCAR */
 function buscar(txt){
 render(productos.filter(p=>p.nombre.toLowerCase().includes(txt.toLowerCase())));
 }
-function irAPago(){
-if(carrito.length===0){
-alert("Tu carrito está vacío");
-return;
+
+/* FILTRAR */
+function filtrar(cat,btn){
+document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+
+let f;
+
+if(cat==="todos") f=productos;
+else if(cat==="alimentos") f=productos.filter(p=>p.categoria==="galletas"||p.categoria==="fit");
+else if(cat==="bebidas") f=productos.filter(p=>p.nombre.toLowerCase().includes("bebida"));
+else f=productos.filter(p=>p.categoria===cat);
+
+render(f);
 }
-sessionStorage.setItem("carrito",JSON.stringify(carrito));
+
+function toggleCart(){
+cart.classList.toggle("active");
+}
+
+function irAPago(){
 window.location.href="carrito.html";
 }
+
 render(productos);
-actualizarCarrito();
+
 </script>
+
 </body>
 </html>
- 

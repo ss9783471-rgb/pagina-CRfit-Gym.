@@ -4,272 +4,307 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brazos | CRFit Gym</title>
+
 <style>
 *{
- margin:0;
- padding:0;
- box-sizing:border-box;
- font-family:Arial, Helvetica, sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
 }
+
 body{
- background:#0f0f0f;
- color:#fff;
+background: radial-gradient(circle at top,#1c1c1e,#0a0a0a 85%);
+color:white;
 }
+
 /* HEADER */
 header{
- background:#000;
- padding:20px 40px;
- display:flex;
- justify-content:space-between;
- align-items:center;
+position:sticky;
+top:0;
+background:rgba(20,20,20,.7);
+backdrop-filter:blur(25px);
+padding:18px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid rgba(255,255,255,.05);
+z-index:100;
 }
-header a{
- color:white;
- text-decoration:none;
- margin-left:20px;
- font-weight:bold;
+
+header h2{ color:#22c55e; }
+
+nav a{
+color:#ccc;
+margin-left:18px;
+text-decoration:none;
 }
-header a:hover{ color:#1db954; }
+nav a:hover{ color:#22c55e; }
+
 /* HERO */
 .hero{
- height:420px;
- background:
-   linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),
-   url("img/brazos-hero.jpg") center/cover no-repeat;
- display:flex;
- align-items:center;
- justify-content:center;
- text-align:center;
- animation:fadeHero 1.2s ease;
+height:520px;
+background:
+linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.9)),
+url("v-gym.jpg") center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
 }
+
 .hero h1{
- font-size:3rem;
- margin-bottom:15px;
+font-size:3.5rem;
+color:#22c55e;
 }
+
 .hero p{
- max-width:750px;
- color:#ccc;
- font-size:1.05rem;
- line-height:1.6;
+font-size:1.1rem;
+max-width:750px;
+color:#bbb;
+margin:auto;
 }
-@keyframes fadeHero{
- from{ opacity:0; transform:translateY(-20px); }
- to{ opacity:1; transform:translateY(0); }
-}
+
 /* CONTENEDOR */
 .container{
- max-width:1100px;
- margin:auto;
- padding:60px 20px;
+max-width:1250px;
+margin:auto;
+padding:60px 25px;
 }
-/* NIVELES */
+
+/* 🔥 NIVELES */
 .niveles{
- display:flex;
- justify-content:center;
- gap:15px;
- margin-bottom:50px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:50px;
 }
-.niveles button{
- padding:14px 32px;
- border-radius:30px;
- border:none;
- background:#222;
- color:white;
- font-weight:bold;
- cursor:pointer;
- transition:.3s;
+
+.nivel-card{
+padding:25px;
+border-radius:25px;
+cursor:pointer;
+
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(25px);
+border:1px solid rgba(255,255,255,0.08);
+
+transition:.35s;
+position:relative;
+overflow:hidden;
 }
-.niveles button:hover{
- transform:scale(1.05);
+
+.nivel-card:hover{
+transform:translateY(-8px) scale(1.02);
+box-shadow:0 20px 60px rgba(0,0,0,.7);
 }
-.niveles button.active{
- background:#1db954;
- color:black;
+
+.nivel-card.active{
+border:1px solid #22c55e;
+box-shadow:0 0 30px rgba(34,197,94,.3);
 }
+
 /* INFO */
 .info{
- text-align:center;
- margin-bottom:50px;
- animation:fadeUp 1s ease;
+text-align:center;
+margin-bottom:40px;
 }
+
 .info h2{
- margin-bottom:10px;
+color:#22c55e;
+font-size:1.8rem;
 }
+
 .info p{
- color:#bbb;
- max-width:800px;
- margin:auto;
- line-height:1.6;
+max-width:850px;
+margin:auto;
+color:#bbb;
 }
-/* EJERCICIOS */
+
+/* 🔥 TARJETAS PRO */
 .ejercicios{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
- gap:35px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
 }
+
 .ejercicio{
- background:#1c1c1c;
- border-radius:18px;
- overflow:hidden;
- transition:.4s;
- animation:fadeUp .9s ease forwards;
+position:relative;
+
+background:rgba(255,255,255,0.04);
+backdrop-filter:blur(30px);
+
+border-radius:28px;
+overflow:hidden;
+
+border:1px solid rgba(255,255,255,0.06);
+
+box-shadow:
+0 10px 40px rgba(0,0,0,0.7),
+inset 0 1px 0 rgba(255,255,255,0.05);
+
+transition:.4s;
 }
+
 .ejercicio:hover{
- transform:translateY(-12px);
- box-shadow:0 20px 35px rgba(0,0,0,.6);
+transform:translateY(-10px) scale(1.02);
+
+box-shadow:
+0 25px 70px rgba(0,0,0,0.9),
+0 0 40px rgba(34,197,94,0.2);
 }
+
 .ejercicio img{
- width:100%;
- height:220px;
- object-fit:cover;
+width:100%;
+height:220px;
+object-fit:cover;
+transition:.4s;
 }
-.ejercicio .content{
- padding:25px;
+
+.ejercicio:hover img{
+transform:scale(1.05);
 }
-.ejercicio h3{
- margin-bottom:8px;
+
+.content{
+padding:22px;
 }
-.ejercicio span{
- color:#1db954;
- font-weight:bold;
- font-size:.9rem;
+
+.content h3{
+font-size:1.25rem;
+margin-bottom:5px;
 }
-.ejercicio p{
- margin-top:10px;
- font-size:.95rem;
- color:#bbb;
- line-height:1.5;
+
+.content span{
+color:#22c55e;
+font-weight:bold;
 }
-/* ANIM */
-@keyframes fadeUp{
- from{ opacity:0; transform:translateY(40px); }
- to{ opacity:1; transform:translateY(0); }
+
+.content p{
+margin-top:10px;
+color:#bbb;
 }
-/* FOOTER */
-footer{
- background:#000;
- padding:25px;
- text-align:center;
- color:#888;
- margin-top:80px;
+
+/* RESPONSIVE */
+@media(max-width:700px){
+
+.hero{
+height:420px;
+}
+
+.hero h1{
+font-size:2.2rem;
+}
+
+.ejercicios{
+grid-template-columns:1fr;
+}
+
 }
 </style>
 </head>
+
 <body>
+
 <header>
 <h2>CRFit Gym</h2>
 <nav>
-<a href="pagina-inicio.html">Inicio</a>
+<a href="index.html">Inicio</a>
 <a href="rutinas.html">Rutinas</a>
 <a href="productos.html">Productos</a>
 </nav>
 </header>
+
 <section class="hero">
 <div>
-<h1>Rutina de Brazos</h1>
-<p>
-     Entrenamiento enfocado en bíceps y tríceps para maximizar volumen,
-     fuerza y definición según tu nivel de experiencia.
-</p>
+<h1>Rutina de Brazos </h1>
+<p>Desarrolla bíceps y tríceps con máxima intensidad y volumen.</p>
 </div>
 </section>
+
 <main class="container">
-<!-- SELECTOR NIVEL -->
+
 <div class="niveles">
-<button class="active" onclick="cambiarNivel('principiante')">Principiante</button>
-<button onclick="cambiarNivel('intermedio')">Intermedio</button>
-<button onclick="cambiarNivel('avanzado')">Avanzado</button>
+
+<div class="nivel-card active" onclick="cambiarNivel('principiante',this)">
+<h3>🔥 Principiante</h3>
+<p>Base y técnica</p>
 </div>
-<!-- INFO -->
+
+<div class="nivel-card" onclick="cambiarNivel('intermedio',this)">
+<h3>⚡ Intermedio</h3>
+<p>Volumen y fuerza</p>
+</div>
+
+<div class="nivel-card" onclick="cambiarNivel('avanzado',this)">
+<h3>💀 Avanzado</h3>
+<p>Máxima intensidad</p>
+</div>
+
+</div>
+
 <div class="info" id="info"></div>
-<!-- EJERCICIOS -->
+
 <div class="ejercicios" id="ejercicios"></div>
+
 </main>
-<footer>
- © 2026 CRFit Gym · Brazos fuertes, técnica perfecta
+
+<footer style="text-align:center;padding:25px;color:#777;">
+© 2026 CRFit Gym
 </footer>
+
 <script>
 const data = {
- principiante:{
-   info:{
-     titulo:"Nivel Principiante",
-     texto:"Ideal para quienes están iniciando o retomando el entrenamiento. Enfocado en técnica correcta, control del movimiento y adaptación muscular."
-   },
-   ejercicios:[
-     { nombre:"Curl con mancuernas",
-       tipo:"Bíceps",
-       img:"img/biceps1.jpg",
-       desc:"3 series x 12 repeticiones · Movimiento controlado"
-     },
-     { nombre:"Fondos asistidos",
-       tipo:"Tríceps",
-       img:"img/triceps1.jpg",
-       desc:"3 series x 10 repeticiones · Enfocado en estabilidad"
-     },
-     { nombre:"Curl martillo",
-       tipo:"Bíceps",
-       img:"img/biceps2.jpg",
-       desc:"3 series x 12 repeticiones · Trabajo del braquial"
-     }
-   ]
- },
- intermedio:{
-   info:{
-     titulo:"Nivel Intermedio",
-     texto:"Pensado para quienes ya dominan la técnica básica y buscan mayor volumen y fuerza mediante cargas moderadas."
-   },
-   ejercicios:[
-     { nombre:"Curl barra",
-       tipo:"Bíceps",
-       img:"img/biceps3.jpg",
-       desc:"4 series x 10 repeticiones · Contracción máxima"
-     },
-     { nombre:"Extensión polea",
-       tipo:"Tríceps",
-       img:"img/triceps2.jpg",
-       desc:"4 series x 12 repeticiones · Aislamiento"
-     },
-     { nombre:"Curl concentrado",
-       tipo:"Bíceps",
-       img:"img/biceps4.jpg",
-       desc:"3 series x 10 repeticiones · Control total"
-     }
-   ]
- },
- avanzado:{
-   info:{
-     titulo:"Nivel Avanzado",
-     texto:"Rutina intensa orientada a máxima hipertrofia y fuerza. Requiere excelente técnica y control."
-   },
-   ejercicios:[
-     { nombre:"Curl barra pesada",
-       tipo:"Bíceps",
-       img:"img/biceps5.jpg",
-       desc:"5 series x 6–8 repeticiones · Carga alta"
-     },
-     { nombre:"Fondos lastrados",
-       tipo:"Tríceps",
-       img:"img/triceps3.jpg",
-       desc:"4 series x 8 repeticiones · Explosividad"
-     },
-     { nombre:"Extensión francesa",
-       tipo:"Tríceps",
-       img:"img/triceps4.jpg",
-       desc:"4 series x 10 repeticiones · Estiramiento profundo"
-     }
-   ]
- }
+principiante:{
+info:{
+titulo:"Nivel Principiante",
+texto:"Aprende técnica y activa correctamente los músculos."
+},
+ejercicios:[
+{nombre:"Curl mancuernas",tipo:"Bíceps",img:"img/biceps1.jpg",desc:"3x12 repeticiones"},
+{nombre:"Fondos asistidos",tipo:"Tríceps",img:"img/triceps1.jpg",desc:"3x10"},
+{nombre:"Curl martillo",tipo:"Bíceps",img:"img/biceps2.jpg",desc:"3x12"}
+]
+},
+
+intermedio:{
+info:{
+titulo:"Nivel Intermedio",
+texto:"Más volumen con cargas moderadas."
+},
+ejercicios:[
+{nombre:"Curl barra",tipo:"Bíceps",img:"img/biceps3.jpg",desc:"4x10"},
+{nombre:"Extensión polea",tipo:"Tríceps",img:"img/triceps2.jpg",desc:"4x12"},
+{nombre:"Curl concentrado",tipo:"Bíceps",img:"img/biceps4.jpg",desc:"3x10"}
+]
+},
+
+avanzado:{
+info:{
+titulo:"Nivel Avanzado",
+texto:"Máxima intensidad y fuerza."
+},
+ejercicios:[
+{nombre:"Curl pesado",tipo:"Bíceps",img:"img/biceps5.jpg",desc:"5x6-8"},
+{nombre:"Fondos lastrados",tipo:"Tríceps",img:"img/triceps3.jpg",desc:"4x8"},
+{nombre:"Extensión francesa",tipo:"Tríceps",img:"img/triceps4.jpg",desc:"4x10"}
+]
+}
 };
-function cambiarNivel(n){
- document.querySelectorAll(".niveles button")
-   .forEach(b=>b.classList.remove("active"));
- event.target.classList.add("active");
- document.getElementById("info").innerHTML = `
+
+function cambiarNivel(n,el){
+
+document.querySelectorAll(".nivel-card")
+.forEach(c=>c.classList.remove("active"));
+
+el.classList.add("active");
+
+document.getElementById("info").innerHTML=`
 <h2>${data[n].info.titulo}</h2>
 <p>${data[n].info.texto}</p>
- `;
- document.getElementById("ejercicios").innerHTML =
-   data[n].ejercicios.map(e=>`
+`;
+
+document.getElementById("ejercicios").innerHTML=
+data[n].ejercicios.map(e=>`
 <div class="ejercicio">
 <img src="${e.img}">
 <div class="content">
@@ -278,9 +313,11 @@ function cambiarNivel(n){
 <p>${e.desc}</p>
 </div>
 </div>
-   `).join("");
+`).join("");
 }
-cambiarNivel("principiante");
+
+cambiarNivel("principiante", document.querySelector(".nivel-card"));
 </script>
+
 </body>
 </html>

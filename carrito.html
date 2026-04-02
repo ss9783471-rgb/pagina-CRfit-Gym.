@@ -201,11 +201,19 @@ Total pagado: ₡<span id="facturaTotal">0</span>
 const carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
 const items = document.getElementById("items");
 const total = document.getElementById("total");
+
 let suma = 0;
+
+/* SI NO HAY PRODUCTOS */
+if(carrito.length === 0){
+items.innerHTML = "<p>Tu carrito está vacío 🛒</p>";
+}else{
+
 /* MOSTRAR PRODUCTOS */
 carrito.forEach(p=>{
 let subtotal = p.precio * p.cantidad;
 suma += subtotal;
+
 items.innerHTML += `
 <div class="cart-item">
 <span>${p.nombre} x${p.cantidad}</span>
@@ -213,25 +221,45 @@ items.innerHTML += `
 </div>
 `;
 });
+
+}
+
 total.textContent = suma.toLocaleString();
+
 /* MOSTRAR CAMPOS TARJETA */
 function cambiarPago(){
 const metodo = document.getElementById("metodoPago").value;
 const tarjeta = document.getElementById("tarjetaCampos");
+
 tarjeta.style.display = metodo === "tarjeta" ? "flex" : "none";
 }
+
 /* FINALIZAR COMPRA */
 function finalizar(e){
 e.preventDefault();
+
+if(carrito.length === 0){
+alert("No hay productos en el carrito");
+return;
+}
+
 document.getElementById("checkout").style.display="none";
+
 const factura = document.getElementById("factura");
 const facturaItems = document.getElementById("facturaItems");
 const facturaTotal = document.getElementById("facturaTotal");
+
 factura.style.display="block";
-let totalPago=0;
+
+/* LIMPIAR ANTES */
+facturaItems.innerHTML = "";
+
+let totalPago = 0;
+
 carrito.forEach(p=>{
 let subtotal = p.precio * p.cantidad;
 totalPago += subtotal;
+
 facturaItems.innerHTML += `
 <div class="factura-item">
 <span>${p.nombre} x${p.cantidad}</span>
@@ -239,13 +267,16 @@ facturaItems.innerHTML += `
 </div>
 `;
 });
+
 facturaTotal.textContent = totalPago.toLocaleString();
+
+/* LIMPIAR CARRITO */
 sessionStorage.removeItem("carrito");
 }
-/* VOLVER A LA TIENDA */
+
+/* VOLVER */
 function volver(){
 window.location.href="productos.html";
-window.location.href="tiendaRopa.html"
 }
 </script>
 </body>
