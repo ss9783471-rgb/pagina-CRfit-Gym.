@@ -17,22 +17,32 @@ body{
 background: radial-gradient(circle at top,#1c1c1e,#0a0a0a 80%);
 color:white;
 }
+html, body{
+    height: 100%;
+    overflow-x: hidden;
+}
+/* evita zoom y scroll raro en el cel */
+input, textarea{
+    font-size: 16px;
+}
 
 /* HEADER */
 header{
-position:sticky;
+position:fixed;
 top:0;
-z-index:100;
-background:rgba(20,20,20,.7);
-backdrop-filter:blur(30px);
+left:0;
+width:100%;
+z-index:1000;
+background:rgba(20,20,20,.55);
+backdrop-filter:blur(40px);
 padding:15px;
 border-bottom:1px solid rgba(255,255,255,.05);
 }
-
 .top{
 display:flex;
 justify-content:space-between;
 align-items:center;
+gap: 10px
 }
 
 .brand{
@@ -44,16 +54,46 @@ gap:10px;
 .brand img{
 height:40px;
 }
-
 .menu a{
-margin-left:15px;
-text-decoration:none;
+position:relative;
+padding:8px 14px;
+border-radius:12px;
 color:#ccc;
+text-decoration:none;
 font-size:14px;
+
+transition:.25s;
 }
 
+/* TEXTO */
 .menu a:hover{
 color:#22c55e;
+}
+
+/* LÍNEA ANIMADA PRO */
+.menu a::after{
+content:"";
+position:absolute;
+left:10px;
+bottom:4px;
+
+width:0%;
+height:2px;
+
+background:linear-gradient(90deg,#22c55e,#4ade80);
+border-radius:2px;
+
+transition:.3s;
+}
+
+/* ACTIVACIÓN */
+.menu a:hover::after{
+width:70%;
+}
+
+/* EFECTO CLICK iOS */
+.menu a:active{
+transform:scale(0.95);
 }
 
 /* BUSCADOR */
@@ -64,9 +104,10 @@ margin-top:12px;
 .search-bar input{
 width:100%;
 padding:14px;
-border-radius:18px;
+border-radius:20px;
 border:none;
 background:rgba(255,255,255,0.06);
+backdrop-filter: 25s;
 color:white;
 outline:none;
 }
@@ -77,9 +118,14 @@ display:flex;
 gap:10px;
 margin-top:12px;
 overflow-x:auto;
+scroll-snap-type: mandatory;
+padding-bottom: 5px;
 }
 
 .categories button{
+flex-shrink: 0;
+scroll-snap-align: start;
+
 padding:10px 18px;
 border-radius:999px;
 border:none;
@@ -111,7 +157,7 @@ z-index:200;
 
 /* GRID */
 .container{
-padding:25px;
+padding: 190px 25px 30px;
 max-width:1200px;
 margin:auto;
 }
@@ -306,10 +352,35 @@ pointer-events:none;
 
 
 /* RESPONSIVE */
-@media(max-width:600px){
-.products{
-grid-template-columns:repeat(2,1fr);
+@media(max-width:768px){
+
+/* HEADER más compacto */
+header{
+padding:10px;
 }
+.container{
+    padding: 210px 15px 30px;
+}
+/* menu mas usable*/
+.menu a{
+    font-size: 13px;
+    padding: 6px 10px;
+}
+
+/* productos mejor acomodados */
+.products{
+padding: 12px;
+}
+.product img{
+    height: 120px;
+}
+
+/* carrito más cómodo */
+.cart{
+max-width:100%;
+border-left: none;
+}
+
 }
 </style>
 </head>
@@ -507,6 +578,17 @@ window.location.href="carrito.html";
 }
 
 render(productos);
+
+const searchInput = document.querySelector(".search-bar input");
+
+searchInput.addEventListener("focus", ()=>{
+document.body.style.position = "fixed";
+document.body.style.width = "100%";
+});
+
+searchInput.addEventListener("blur", ()=>{
+document.body.style.position = "";
+});
 
 </script>
 

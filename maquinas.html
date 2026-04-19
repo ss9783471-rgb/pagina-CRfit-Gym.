@@ -4,233 +4,237 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Catálogo | CRFit Gym</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#0b0b0b;color:#fff}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,sans-serif}
+
+body{
+background:#0b0b0b;
+color:#fff;
+}
+
 /* HEADER */
 header{
- background:#000;padding:15px 40px;display:flex;align-items:center;justify-content:space-between;
- position:sticky;top:0;z-index:100;box-shadow:0 10px 30px rgba(0,0,0,.6);flex-wrap:wrap;gap:10px
+background:rgba(0,0,0,.85);
+backdrop-filter:blur(15px);
+padding:15px;
+display:flex;
+flex-wrap:wrap;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+position:sticky;
+top:0;
+z-index:100;
 }
-.logo{display:flex;align-items:center;gap:12px}
-.logo img{height:90px}
-.logo span{font-size:1.6rem;font-weight:bold}
-nav{display:flex;align-items:center;gap:25px}
-nav a{color:#fff;text-decoration:none;font-weight:bold;opacity:.9}
-nav a:hover{color:#1db954}
+
+.logo{display:flex;align-items:center;gap:10px}
+.logo img{height:70px}
+.logo span{font-weight:bold;font-size:1.5rem}
+
+/* NAV */
+nav{display:flex;gap:15px;flex-wrap:wrap}
+nav a{color:white;text-decoration:none;font-weight:bold}
+
 .msg-btn{
- background:linear-gradient(135deg,#1db954,#16a34a);padding:10px 22px;border-radius:30px;
- color:#000;font-weight:bold;box-shadow:0 8px 20px rgba(29,185,84,.45);transition:.3s
+background:linear-gradient(135deg,#1db954,#16a34a);
+padding:10px 20px;
+border-radius:25px;
+color:#000;
+font-weight:bold;
+box-shadow:0 5px 20px rgba(29,185,84,.5);
 }
-.msg-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(29,185,84,.7)}
-.search-box{width:360px;max-width:100%}
+
+/* BUSCADOR */
+.search-box{width:100%;max-width:400px}
 .search-box input{
- width:100%;padding:12px 18px;border-radius:30px;border:none;background:#1a1a1a;color:#fff;outline:none
+width:100%;
+padding:12px;
+border-radius:25px;
+border:none;
+background:#1a1a1a;
+color:white;
 }
+
 /* TITULOS */
-.section-title{font-size:28px;margin:40px 0 25px;text-align:center}
-/* CARRUSEL REBAJAS */
+.section-title{
+text-align:center;
+margin:30px 0 20px;
+font-size:24px;
+}
+
+/* CARRUSEL */
 .sale-carousel{
- max-width:1300px;margin:auto;overflow:hidden;margin-bottom:40px;position:relative
+overflow-x:auto;
+padding:10px;
+scroll-snap-type:x mandatory;
 }
 .carousel-track{
- display:flex;gap:25px;transition:transform .6s ease;will-change:transform
+display:flex;
+gap:15px;
 }
 .carousel-card{
- min-width:260px;max-width:260px;background:#141414;border-radius:18px;overflow:hidden;cursor:pointer;
- transition:.3s;position:relative
+min-width:250px;
+background:#141414;
+border-radius:18px;
+overflow:hidden;
+scroll-snap-align:start;
+transition:.3s;
 }
-.carousel-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,.8)}
-.carousel-card img{width:100%;height:200px;object-fit:cover}
-.carousel-info{padding:15px}
-.sale{position:absolute;top:10px;left:10px;background:#e11d48;padding:5px 10px;font-size:12px;border-radius:20px}
-.price{color:#1db954;font-size:1.1rem}
-.old{text-decoration:line-through;color:#888;font-size:14px;margin-right:8px}
+.carousel-card:active{transform:scale(.96)}
+.carousel-card img{
+width:100%;
+height:160px;
+object-fit:cover;
+}
+.carousel-info{padding:10px}
+.sale{
+position:absolute;
+background:red;
+padding:5px 10px;
+border-radius:20px;
+font-size:12px;
+top:10px;
+left:10px;
+}
+.price{color:#1db954}
+.old{text-decoration:line-through;color:#888}
+
 /* GRID */
 .grid{
- max-width:1300px;margin:auto;display:grid;
- grid-template-columns:repeat(auto-fill,260px);justify-content:center;gap:30px;padding-bottom:40px
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:15px;
+padding:15px;
 }
+
 /* CARD */
 .card{
- background:#141414;border-radius:18px;overflow:hidden;cursor:pointer;transition:all .35s ease;
- position:relative;width:260px
+background:#141414;
+border-radius:18px;
+overflow:hidden;
+position:relative;
+transition:.3s;
 }
-.card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 25px 60px rgba(0,0,0,.9)}
-.card img{width:100%;height:200px;object-fit:cover;transition:transform .4s ease}
-.card:hover img{transform:scale(1.08)}
-.card-content{padding:18px}
-/* OVERLAY */
-.card-overlay{
- position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.3));
- display:flex;align-items:center;justify-content:center;opacity:0;transition:.3s
+.card:active{transform:scale(.96)}
+
+.card img{
+width:100%;
+height:150px;
+object-fit:cover;
 }
-.card:hover .card-overlay{opacity:1}
+
+.card-content{padding:10px}
+
+/* OVERLAY TOUCH */
+.overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.75);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+transition:.3s;
+}
+.card.active .overlay{opacity:1}
+
 .view-btn{
- padding:12px 30px;border:none;border-radius:30px;background:#1db954;font-weight:bold;cursor:pointer
+background:#1db954;
+padding:10px 20px;
+border-radius:25px;
+font-weight:bold;
 }
+
 /* PRODUCT VIEW */
-section{display:none;padding:40px}
+section{display:none}
 section.active{display:block}
+
 .product-view{
- max-width:1100px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:40px
+padding:20px;
 }
-.product-view img{width:100%;border-radius:20px}
+.product-view img{
+width:100%;
+border-radius:15px;
+margin-bottom:15px;
+}
+
 .buy{
- margin-top:25px;padding:15px 40px;border:none;border-radius:30px;background:#1db954;font-weight:bold;cursor:pointer
+width:100%;
+padding:15px;
+background:#1db954;
+border:none;
+border-radius:25px;
+font-weight:bold;
+margin-top:15px;
 }
-.back{margin-bottom:25px;background:none;border:none;color:#1db954;font-weight:bold;cursor:pointer}
-/* ========================== */
-/* RESPONSIVE CATÁLOGO CRFIT */
-/* ========================== */
-@media(max-width:1024px){
- header{
-   flex-direction:column;
-   align-items:flex-start;
-   gap:10px;
-   padding:10px 15px;
- }
- .logo span{
-   font-size:1.3rem;
- }
- nav{
-   flex-wrap:wrap;
-   gap:10px;
- }
- .search-box{
-   width:100%;
-   margin-top:8px;
- }
+
+.back{
+margin:15px;
+background:none;
+border:none;
+color:#1db954;
+font-weight:bold;
 }
-@media(max-width:768px){
- /* HEADER */
- header{
-   justify-content:center;
-   text-align:center;
- }
- nav{
-   flex-direction:column;
-   align-items:center;
- }
- nav a, .msg-btn{
-   margin-left:0;
-   width:90%;
-   text-align:center;
-   margin-bottom:6px;
- }
- /* CARRUSEL */
- .sale-carousel{
-   overflow-x:auto;
-   padding-bottom:10px;
- }
- .carousel-track{
-   flex-wrap:nowrap;
- }
- .carousel-card{
-   min-width:200px;
-   max-width:200px;
- }
- /* GRID PRODUCTOS */
- .grid{
-   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-   gap:15px;
-   padding:20px 10px 40px 10px;
- }
- .card, .card img{
-   width:100%;
-   height:auto;
- }
- /* PRODUCT VIEW */
- .product-view{
-   grid-template-columns:1fr;
-   gap:20px;
-   padding:0 10px;
- }
- .product-view img{
-   width:100%;
-   height:auto;
- }
- .buy{
-   width:100%;
-   padding:12px 0;
-   font-size:16px;
- }
- /* TITULOS */
- .section-title{
-   font-size:22px;
-   margin:25px 0 20px;
- }
+
+/* RESPONSIVE */
+@media(min-width:768px){
+
+.grid{
+grid-template-columns:repeat(4,1fr);
 }
-@media(max-width:480px){
- header{
-   padding:8px 10px;
- }
- .logo img{
-   height:60px;
- }
- .logo span{
-   font-size:1.1rem;
- }
- .search-box input{
-   padding:10px 15px;
-   font-size:14px;
- }
- .section-title{
-   font-size:20px;
- }
- .carousel-card{
-   min-width:160px;
-   max-width:160px;
- }
- .grid{
-   grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-   gap:12px;
- }
- .card-content h3{
-   font-size:14px;
- }
- .price, .old{
-   font-size:13px;
- }
- .view-btn{
-   padding:10px 20px;
-   font-size:13px;
- }
- .buy{
-   font-size:14px;
- }
+
+.product-view{
+max-width:1000px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
 }
+
+}
+
 </style>
 </head>
+
 <body>
+
 <header>
 <div class="logo">
-<img src="logoCRfit.png" alt="CRFit">
+<img src="logoCRfit.png">
 <span>CRFit Gym</span>
 </div>
+
 <div class="search-box">
-<input id="searchInput" placeholder="Buscar máquinas o equipos...">
+<input id="searchInput" placeholder="Buscar equipos...">
 </div>
+
 <nav>
 <a href="index.html">Inicio</a>
 <a href="rutinas.html">Rutinas</a>
 <a class="msg-btn" href="mensajes.html">Enviar mensaje</a>
 </nav>
 </header>
-<section id="sale" class="active">
-<h2 class="section-title">🔥 Productos en rebaja</h2>
+
+<section id="catalogo" class="active">
+
+<h2 class="section-title">🔥 Rebajas</h2>
 <div class="sale-carousel">
 <div class="carousel-track" id="saleGrid"></div>
 </div>
-<h2 class="section-title"> Catálogo completo</h2>
+
+<h2 class="section-title">Catálogo</h2>
 <div class="grid" id="grid"></div>
+
 </section>
-<section id="product">
-<button class="back" onclick="showSection('sale')">← Volver</button>
-<div class="product-view" id="productView"></div>
+
+<section id="producto">
+<button class="back" onclick="mostrar('catalogo')">← Volver</button>
+<div class="product-view" id="view"></div>
 </section>
+
 <script>
-/* PRODUCTOS */
+
 const products=[
 {name:"MultiGym impulse",price:1600000,sale:1400000,img:"https://media.nidux.net/pull/600/800/13624/6278-product-6835e75800bd4-fl02100-001.jpg"},
 {name:"cardio caminadora",price:950000,sale:820000,img:"https://media.nidux.net/pull/600/800/13624/6277-product-68ac7d8bd7cd3-fl02001-002-1.jpg"},
@@ -253,95 +257,98 @@ const products=[
 {name:"Air bike",price:560000,img:"img/19.jpg"},
 {name:"Step",price:210000,img:"img/20.jpg"}
 ];
+
 const grid=document.getElementById("grid");
 const saleGrid=document.getElementById("saleGrid");
+
 /* RENDER */
-function renderProducts(list=products){
- grid.innerHTML="";
- saleGrid.innerHTML="";
- list.forEach((p,i)=>{
-   /* TARJETA NORMAL */
-   const card=`
-<div class="card" onclick="openProduct(${products.indexOf(p)})">
-     ${p.sale?'<div class="sale">REBAJA</div>':""}
-<img src="${p.img}">
-<div class="card-content">
-<h3>${p.name}</h3>
-<div>
-         ${p.sale?`<span class="old">₡${p.price.toLocaleString()}</span>`:""}
-<span class="price">₡${(p.sale||p.price).toLocaleString()}</span>
-</div>
-</div>
-<div class="card-overlay">
-<button class="view-btn">Ver producto</button>
-</div>
-</div>
-   `;
-   grid.innerHTML+=card;
-   /* TARJETA REBAJA */
-   if(p.sale){
-     saleGrid.innerHTML+=`
-<div class="carousel-card" onclick="openProduct(${products.indexOf(p)})">
-<div class="sale">REBAJA</div>
+function render(list=products){
+grid.innerHTML="";
+saleGrid.innerHTML="";
+
+/* CARRUSEL (hasta 8 rebajas) */
+products.filter(p=>p.sale).slice(0,8).forEach((p,i)=>{
+saleGrid.innerHTML+=`
+<div class="carousel-card" onclick="abrir(${i})">
 <img src="${p.img}">
 <div class="carousel-info">
-<h3>${p.name}</h3>
-<span class="old">₡${p.price.toLocaleString()}</span>
+<h4>${p.name}</h4>
+<span class="old">₡${p.price.toLocaleString()}</span><br>
 <span class="price">₡${p.sale.toLocaleString()}</span>
 </div>
+</div>`;
+});
+
+/* GRID */
+list.forEach((p,i)=>{
+grid.innerHTML+=`
+<div class="card" onclick="activar(this)">
+<img src="${p.img}">
+<div class="card-content">
+<h4>${p.name}</h4>
+<p class="price">₡${(p.sale||p.price).toLocaleString()}</p>
 </div>
-     `;
-   }
- });
- startCarousel();
+
+<div class="overlay" onclick="ver(event,${i})">
+<div class="view-btn">Ver producto</div>
+</div>
+</div>`;
+});
 }
-/* CARRUSEL AUTOMATICO */
-let index=0;
-function startCarousel(){
- const track=document.getElementById("saleGrid");
- const cards=track.children.length;
- const visible=5;
- if(cards<=visible) return;
- setInterval(()=>{
-   index++;
-   if(index>cards-visible){index=0}
-   track.style.transform=`translateX(-${index*285}px)`;
- },3000);
+
+/* ACTIVAR TARJETA */
+function activar(card){
+document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));
+card.classList.add("active");
 }
-/* ABRIR PRODUCTO */
-function openProduct(i){
+
+/* VER PRODUCTO */
+function ver(e,i){
+e.stopPropagation();
 const p=products[i];
-document.getElementById("productView").innerHTML=`
+
+view.innerHTML=`
 <img src="${p.img}">
 <div>
-<h1>${p.name}</h1>
-<p>Máquina profesional de gimnasio diseñada para entrenamientos intensivos.</p>
-<h2 class="price">₡${(p.sale||p.price).toLocaleString()}</h2>
+<h2>${p.name}</h2>
+<p>Equipo profesional para gimnasio</p>
+<h3 class="price">₡${(p.sale||p.price).toLocaleString()}</h3>
+
 <button class="buy" onclick="comprar('${p.name}',${p.sale||p.price})">
 Comprar ahora
 </button>
 </div>
 `;
-showSection("product");
+
+mostrar("producto");
 }
+
+/* ABRIR DESDE CARRUSEL */
+function abrir(i){ver(new Event("click"),i)}
+
 /* COMPRAR */
 function comprar(nombre,precio){
-window.location.href=
-"pago.html?producto="+encodeURIComponent(nombre)+"&precio="+precio;
+window.location.href=`pago.html?producto=${encodeURIComponent(nombre)}&precio=${precio}`;
 }
+
 /* CAMBIAR SECCION */
-function showSection(id){
+function mostrar(id){
 document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
+window.scrollTo(0,0);
 }
-/* BUSCADOR */
-document.getElementById("searchInput").addEventListener("input",e=>{
+
+/* BUSCAR */
+searchInput.addEventListener("input",e=>{
 const val=e.target.value.toLowerCase();
-const filtered=products.filter(p=>p.name.toLowerCase().includes(val));
-renderProducts(filtered);
+const f=products.filter(p=>p.name.toLowerCase().includes(val));
+render(f);
 });
+
 /* INICIO */
-renderProducts();
+render();
+
 </script>
+
 </body>
 </html>

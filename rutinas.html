@@ -6,43 +6,64 @@
 <title>Rutinas | CRFit Gym</title>
 
 <style>
+
+/* ===== RESET ===== */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:-apple-system, BlinkMacSystemFont, "San Francisco", Arial;
-scroll-behavior:smooth;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
 }
 
 body{
 background:linear-gradient(180deg,#050505,#0f0f0f);
 color:white;
+overflow-x:hidden;
 }
 
-/* HEADER */
+/* ===== HEADER iOS ===== */
 header{
-background:rgba(10,10,10,0.7);
-backdrop-filter:blur(20px);
-padding:15px 30px;
+background:rgba(15,15,15,0.6);
+backdrop-filter:blur(30px);
+padding:12px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 position:sticky;
 top:0;
-z-index:100;
-border-bottom:1px solid rgba(29,185,84,0.2);
+z-index:1000;
+border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-header h2{
-color:#1db954;
+/* LOGO */
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo img{
+height:50px;
+}
+
+.logo strong{
+font-size:20px;
+font-weight:600;
+}
+
+/* NAV */
+nav{
+display:flex;
+align-items:center;
+gap:20px;
 }
 
 nav a{
 color:#aaa;
 text-decoration:none;
-margin-left:20px;
 font-size:14px;
 transition:.3s;
+position:relative;
 }
 
 nav a:hover{
@@ -53,12 +74,24 @@ color:#1db954;
 .music-btn{
 padding:8px 18px;
 background:linear-gradient(135deg,#1db954,#14a844);
-border-radius:25px;
+border-radius:999px;
 color:black;
 font-weight:bold;
+transition:.3s;
 }
 
-/* HERO */
+.music-btn:hover{
+transform:scale(1.05);
+}
+
+/* MENU BTN */
+.menu-btn{
+display:none;
+font-size:26px;
+cursor:pointer;
+}
+
+/* ===== HERO ===== */
 .hero{
 height:450px;
 position:relative;
@@ -66,10 +99,13 @@ display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
+overflow:hidden;
 }
 
 .hero video{
 position:absolute;
+top:0;
+left:0;
 width:100%;
 height:100%;
 object-fit:cover;
@@ -79,7 +115,11 @@ object-fit:cover;
 position:absolute;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.65);
+background:linear-gradient(
+to bottom,
+rgba(0,0,0,0.5),
+rgba(0,0,0,0.8)
+);
 }
 
 .hero-content{
@@ -88,22 +128,23 @@ z-index:2;
 }
 
 .hero h1{
-font-size:2.8rem;
+font-size:clamp(2rem,5vw,3rem);
 color:#1db954;
 }
 
 .hero p{
 color:#ccc;
+margin-top:10px;
 }
 
-/* CONTAINER */
+/* ===== CONTAINER ===== */
 .container{
-max-width:1100px;
+max-width:1200px;
 margin:auto;
 padding:60px 20px;
 }
 
-/* CARDS */
+/* ===== CARDS iOS ===== */
 .cards{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -111,31 +152,42 @@ gap:25px;
 }
 
 .card{
-background:rgba(255,255,255,0.04);
-border-radius:20px;
+background:rgba(255,255,255,0.05);
+border-radius:25px;
 overflow:hidden;
-transition:.4s;
-border:1px solid rgba(29,185,84,0.15);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.08);
+
+transition:.25s ease;
+cursor:pointer;
 }
 
+/* HOVER (PC) */
 .card:hover{
 transform:translateY(-6px) scale(1.02);
-box-shadow:0 10px 30px rgba(29,185,84,0.25);
+box-shadow:0 15px 40px rgba(0,0,0,0.6);
 }
 
+/* TAP (CELULAR estilo iOS) */
+.card:active{
+transform:scale(0.96);
+}
+
+/* IMG */
 .card img{
 width:100%;
 height:200px;
 object-fit:cover;
 }
 
+/* CONTENT */
 .card-content{
 padding:18px;
 }
 
 .card-content h3{
 color:#1db954;
-margin-bottom:8px;
+margin-bottom:6px;
 }
 
 .card-content p{
@@ -143,33 +195,32 @@ color:#aaa;
 font-size:14px;
 }
 
-/* BOTÓN VERDE PRO */
+/* BOTÓN CARD */
 .card-content a{
 display:inline-block;
 margin-top:12px;
 padding:10px 18px;
+border-radius:999px;
 background:linear-gradient(135deg,#1db954,#14a844);
 color:black;
-border-radius:25px;
 font-size:13px;
 text-decoration:none;
 font-weight:bold;
-transition:.3s;
-box-shadow:0 5px 15px rgba(29,185,84,0.3);
+transition:.2s;
 }
 
 .card-content a:hover{
-transform:scale(1.08);
-box-shadow:0 8px 25px rgba(29,185,84,0.5);
+transform:scale(1.05);
 }
 
-/* INFO */
+/* ===== INFO ===== */
 .info{
-background:rgba(29,185,84,0.05);
+background:rgba(255,255,255,0.04);
 margin:40px 20px;
 padding:40px 25px;
 border-radius:25px;
-border:1px solid rgba(29,185,84,0.2);
+border:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
 }
 
 .info h2{
@@ -179,52 +230,64 @@ margin-bottom:15px;
 
 .info p{
 color:#ccc;
-margin-bottom:15px;
+margin-bottom:12px;
 line-height:1.5;
 }
 
-/* FOOTER */
+/* ===== FOOTER ===== */
 footer{
 text-align:center;
-padding:25px;
+padding:30px;
 color:#777;
+border-top:1px solid rgba(255,255,255,0.05);
+margin-top:40px;
 }
 
-/* RESPONSIVE */
+/* ===== MOBILE ===== */
 @media(max-width:768px){
 
-header{
-flex-direction:column;
-align-items:flex-start;
-}
+.menu-btn{display:block;}
 
 nav{
-width:100%;
-margin-top:10px;
+position:fixed;
+top:65px;
+right:-260px;
+width:220px;
+height:100%;
+background:rgba(10,10,10,0.98);
+backdrop-filter:blur(25px);
+flex-direction:column;
+gap:15px;
+padding:25px 20px;
+transition:.3s;
+}
+
+nav.show{
+right:0;
 }
 
 nav a{
-display:block;
-margin:6px 0;
+font-size:16px;
+color:white;
+padding:10px;
+border-radius:10px;
 }
 
+/* HERO */
 .hero{
 height:300px;
 }
 
-.hero h1{
-font-size:1.8rem;
-}
-
+/* CARDS */
 .cards{
 grid-template-columns:1fr;
+gap:15px;
 }
 
-.info{
-margin:20px 10px;
-padding:25px 18px;
+.music-btn{
+width:100%;
+text-align:center;
 }
-
 }
 </style>
 </head>
@@ -232,26 +295,37 @@ padding:25px 18px;
 <body>
 
 <header>
-<h2>CRFit Gym</h2>
-<nav>
+<div class="logo">
+    <img src="logoCRfit.png"
+    <strong>CRfit Gym</strong>
+</div>
+
+<span class="menu-btn" onclick="toggleMenu()">☰</span>
+
+<nav id="nav-menu">
 <a href="index.html">Inicio</a>
 <a href="#info">Cómo entrenar</a>
 <a href="musica.html" class="music-btn">🎧 Música</a>
 </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
-<video autoplay muted loop>
-<source src="video-gym2.mp4">
+
+<video autoplay muted loop playsinline preload="auto">
+<source src="video-gym2.mp4" type="video/mp4">
 </video>
+
 <div class="hero-overlay"></div>
 
 <div class="hero-content">
 <h1>Entrena Como Profesional</h1>
 <p>Rutinas diseñadas para transformar tu cuerpo</p>
 </div>
+
 </section>
 
+<!-- CARDS -->
 <main class="container">
 
 <div class="cards">
@@ -261,7 +335,7 @@ padding:25px 18px;
 <div class="card-content">
 <h3>Brazos</h3>
 <p>Bíceps y tríceps para volumen.</p>
-<a href="#">Ver rutina</a>
+<a>Ver rutina</a>
 </div>
 </div>
 
@@ -270,7 +344,7 @@ padding:25px 18px;
 <div class="card-content">
 <h3>Pecho</h3>
 <p>Fuerza y estética.</p>
-<a href="#">Ver rutina</a>
+<a>Ver rutina</a>
 </div>
 </div>
 
@@ -279,7 +353,7 @@ padding:25px 18px;
 <div class="card-content">
 <h3>Espalda</h3>
 <p>Potencia muscular.</p>
-<a href="#">Ver rutina</a>
+<a>Ver rutina</a>
 </div>
 </div>
 
@@ -288,7 +362,7 @@ padding:25px 18px;
 <div class="card-content">
 <h3>Piernas</h3>
 <p>Fuerza total.</p>
-<a href="#">Ver rutina</a>
+<a>Ver rutina</a>
 </div>
 </div>
 
@@ -297,7 +371,7 @@ padding:25px 18px;
 <div class="card-content">
 <h3>Hombros</h3>
 <p>Amplitud y estabilidad.</p>
-<a href="#">Ver rutina</a>
+<a>Ver rutina</a>
 </div>
 </div>
 
@@ -305,16 +379,16 @@ padding:25px 18px;
 
 </main>
 
+<!-- INFO -->
 <section id="info" class="info">
 <h2>Cómo entrenar correctamente</h2>
 
-<p><b>Incrementar músculo:</b> El entrenamiento de fuerza ayuda a aumentar masa muscular. Combine esto con buena alimentación.</p>
-<p><b>Fuerza:</b> Más peso + mismas repeticiones = más fuerza.</p>
+<p><b>Incrementar músculo:</b> El entrenamiento de fuerza ayuda a aumentar masa muscular.</p>
+<p><b>Fuerza:</b> Más peso = más fuerza.</p>
 <p><b>Tonificación:</b> Menos peso + más repeticiones.</p>
-<p><b>Progresión:</b> Aumente dificultad cuando sea fácil.</p>
-<p><b>Recomendación:</b> 15 a 20 repeticiones por serie.</p>
-<p><b>Intensidad:</b> Empiece suave y suba progresivamente.</p>
-<p><b>Dolor:</b> Normal al inicio, ajuste si dura mucho.</p>
+<p><b>Progresión:</b> Aumente dificultad constantemente.</p>
+<p><b>Recomendación:</b> 15 a 20 repeticiones.</p>
+<p><b>Intensidad:</b> Empiece suave y suba.</p>
 
 </section>
 
@@ -323,9 +397,29 @@ padding:25px 18px;
 </footer>
 
 <script>
+
+/* REDIRECCIÓN */
 function ir(tipo){
 window.location.href=`rutina-${tipo}.html`;
 }
+
+/* MENU */
+const menuBtn = document.querySelector(".menu-btn");
+const navMenu = document.getElementById("nav-menu");
+
+function toggleMenu(){
+navMenu.classList.toggle("show");
+}
+
+/* Cerrar al tocar fuera */
+document.addEventListener("click", (e)=>{
+if(window.innerWidth <= 768){
+if(!navMenu.contains(e.target) && !menuBtn.contains(e.target)){
+navMenu.classList.remove("show");
+}
+}
+});
+
 </script>
 
 </body>

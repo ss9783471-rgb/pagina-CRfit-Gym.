@@ -2,122 +2,146 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Pago | CRFit Gym</title>
+
 <style>
 *{
 box-sizing:border-box;
 margin:0;
 padding:0;
-font-family:Arial,sans-serif;
+font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
 }
+
+/* 🔥 FIX GLOBAL MOBILE */
+html, body{
+height:100%;
+}
+
 body{
 background:#0b0b0b;
 color:white;
-min-height:100vh;
+display:flex;
+flex-direction:column;
+overflow:hidden; /* 🔥 evita que todo se mueva */
 }
+
 /* HEADER */
 header{
+flex-shrink:0;
 background:#000;
-padding:15px 40px;
+padding:15px 20px;
 display:flex;
 align-items:center;
 justify-content:space-between;
 box-shadow:0 10px 30px rgba(0,0,0,.6);
 }
+
 .logo{
 display:flex;
 align-items:center;
 gap:10px;
 }
+
 .logo img{
-height:70px;
+height:55px;
 }
+
 .logo span{
-font-size:1.4rem;
+font-size:1.2rem;
 font-weight:bold;
 }
-/* CONTENEDOR */
+
+/* 🔥 CONTENEDOR PRINCIPAL (SCROLL INTERNO) */
 .checkout{
-max-width:1100px;
-margin:50px auto;
+flex:1;
+overflow-y:auto; /* 🔥 solo aquí hay scroll */
+padding:20px;
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:40px;
-padding:20px;
+gap:25px;
 }
-/* RESUMEN */
-.summary{
+
+/* BOXES */
+.summary,
+.payment{
 background:#141414;
-padding:30px;
-border-radius:20px;
+padding:20px;
+border-radius:18px;
 box-shadow:0 15px 40px rgba(0,0,0,.7);
 }
-.summary h2{
-margin-bottom:20px;
-}
+
+/* RESUMEN */
 .item{
 display:flex;
 justify-content:space-between;
-margin-bottom:12px;
+margin-bottom:10px;
+font-size:14px;
 }
+
 .total{
-margin-top:20px;
-font-size:20px;
+margin-top:15px;
+font-size:18px;
 font-weight:bold;
 display:flex;
 justify-content:space-between;
 color:#1db954;
 }
+
 /* FORM */
-.payment{
-background:#141414;
-padding:30px;
-border-radius:20px;
-box-shadow:0 15px 40px rgba(0,0,0,.7);
-}
 .input{
-margin-bottom:15px;
+margin-bottom:12px;
 }
+
 .input label{
 font-size:13px;
 display:block;
 margin-bottom:4px;
+color:#aaa;
 }
+
 .input input{
 width:100%;
-padding:12px;
+padding:14px;
 border:none;
-border-radius:8px;
+border-radius:10px;
 background:#1f1f1f;
 color:white;
+font-size:16px; /* 🔥 evita zoom iPhone */
 }
+
 .row{
 display:flex;
 gap:10px;
 }
+
+/* BOTÓN */
 .pay-btn{
-margin-top:20px;
+margin-top:15px;
 width:100%;
-padding:15px;
+padding:16px;
 border:none;
 border-radius:30px;
-background:#1db954;
+background:linear-gradient(135deg,#1db954,#1ed760);
 font-size:16px;
 font-weight:bold;
 cursor:pointer;
-transition:.3s;
+transition:.2s;
 }
-.pay-btn:hover{
-transform:translateY(-2px);
-box-shadow:0 10px 20px rgba(29,185,84,.6);
+
+.pay-btn:active{
+transform:scale(.96);
 }
+
 /* PROCESANDO */
 .processing{
 display:none;
-text-align:center;
-padding:60px;
+flex:1;
+justify-content:center;
+align-items:center;
+flex-direction:column;
 }
+
 .spinner{
 width:60px;
 height:60px;
@@ -127,167 +151,252 @@ border-radius:50%;
 animation:spin 1s linear infinite;
 margin:20px auto;
 }
+
 @keyframes spin{
 to{transform:rotate(360deg)}
 }
+
 /* RESULTADO */
 .result{
 display:none;
+flex:1;
+overflow-y:auto;
+padding:20px;
 text-align:center;
-padding:50px;
 }
+
 .result h2{
 color:#1db954;
-font-size:28px;
+font-size:24px;
 margin-bottom:10px;
 }
+
 /* FACTURA */
 .invoice{
-margin-top:40px;
+margin-top:20px;
 max-width:600px;
 margin-left:auto;
 margin-right:auto;
 background:#141414;
-padding:30px;
-border-radius:20px;
-box-shadow:0 15px 40px rgba(0,0,0,.7);
+padding:20px;
+border-radius:18px;
 text-align:left;
 }
-.invoice h3{
-margin-bottom:20px;
-}
+
 .invoice-item{
 display:flex;
 justify-content:space-between;
-margin-bottom:10px;
+margin-bottom:8px;
+font-size:14px;
 }
+
 .invoice-total{
-margin-top:15px;
-font-size:18px;
+margin-top:10px;
+font-size:16px;
 font-weight:bold;
 color:#1db954;
 display:flex;
 justify-content:space-between;
 }
+
+/* 📱 MOBILE PERFECTO */
 @media(max-width:900px){
+
 .checkout{
 grid-template-columns:1fr;
+padding:15px;
+gap:15px;
 }
+
+header{
+padding:12px 15px;
+}
+
+.logo img{
+height:45px;
+}
+
+.summary,
+.payment{
+padding:15px;
+}
+
+.row{
+flex-direction:column;
+}
+
 }
 </style>
 </head>
+
 <body>
+
 <header>
 <div class="logo">
 <img src="logoCRfit.png">
 <span>CRFit Gym</span>
 </div>
 </header>
+
+<!-- CHECKOUT -->
 <div class="checkout" id="checkout">
+
 <div class="summary">
 <h2>Resumen del pedido</h2>
+
 <div class="item">
 <span id="productName"></span>
 <span id="productPrice"></span>
 </div>
+
 <div class="item">
 <span>Impuesto (13%)</span>
 <span id="tax"></span>
 </div>
+
 <div class="total">
 <span>Total</span>
 <span id="total"></span>
 </div>
 </div>
+
 <div class="payment">
 <h2>Información de pago</h2>
+
 <div class="input">
 <label>Nombre en la tarjeta</label>
 <input>
 </div>
+
 <div class="input">
 <label>Número de tarjeta</label>
 <input>
 </div>
+
 <div class="row">
 <div class="input">
 <label>Expiración</label>
 <input placeholder="MM/AA">
 </div>
+
 <div class="input">
 <label>CVV</label>
 <input>
 </div>
 </div>
+
 <div class="input">
 <label>Correo electrónico</label>
 <input>
 </div>
+
 <button class="pay-btn" onclick="pagar()">
 Pagar ahora
 </button>
+
 </div>
+
 </div>
+
+<!-- PROCESANDO -->
 <div class="processing" id="processing">
 <h2>Procesando pago...</h2>
 <div class="spinner"></div>
 </div>
+
+<!-- RESULTADO -->
 <div class="result" id="result">
 <h2>🎉 ¡Pago realizado con éxito!</h2>
 <p>Gracias por comprar en CRFit Gym.</p>
+
 <div class="invoice">
 <h3>Factura</h3>
+
 <div class="invoice-item">
 <span>Producto</span>
 <span id="invoiceProduct"></span>
 </div>
+
 <div class="invoice-item">
 <span>Precio</span>
 <span id="invoicePrice"></span>
 </div>
+
 <div class="invoice-item">
 <span>Impuesto</span>
 <span id="invoiceTax"></span>
 </div>
+
 <div class="invoice-total">
 <span>Total pagado</span>
 <span id="invoiceTotal"></span>
 </div>
+
 <div class="invoice-item">
 <span>Pedido</span>
 <span id="order"></span>
 </div>
+
 <div class="invoice-item">
 <span>Fecha</span>
 <span id="date"></span>
 </div>
+
 </div>
 </div>
+
 <script>
 const params=new URLSearchParams(window.location.search)
 const producto=params.get("producto")
 const precio=Number(params.get("precio"))
+
 const impuesto=Math.round(precio*0.13)
-const total=precio+impuesto
+const totalPago=precio+impuesto
+
 productName.textContent=producto
 productPrice.textContent="₡"+precio.toLocaleString()
 tax.textContent="₡"+impuesto.toLocaleString()
-total.textContent="₡"+total.toLocaleString()
+total.textContent="₡"+totalPago.toLocaleString()
+
 function pagar(){
-checkout.style.display="none"
-processing.style.display="block"
+
+const inputs = document.querySelectorAll(".payment input");
+let valido = true;
+
+inputs.forEach(input=>{
+if(input.value.trim() === ""){
+input.style.border = "2px solid red";
+valido = false;
+}else{
+input.style.border = "none";
+}
+});
+
+if(!valido){
+alert("⚠️ Por favor completa toda la información");
+return;
+}
+
+/* SI TODO ESTÁ BIEN */
+checkout.style.display="none";
+processing.style.display="block";
+
 setTimeout(()=>{
-processing.style.display="none"
-result.style.display="block"
-invoiceProduct.textContent=producto
-invoicePrice.textContent="₡"+precio.toLocaleString()
-invoiceTax.textContent="₡"+impuesto.toLocaleString()
-invoiceTotal.textContent="₡"+total.toLocaleString()
-order.textContent="#"+Math.floor(Math.random()*900000+100000)
-const hoy=new Date()
-date.textContent=hoy.toLocaleDateString()
-},2500)
+processing.style.display="none";
+result.style.display="block";
+
+invoiceProduct.textContent=producto;
+invoicePrice.textContent="₡"+precio.toLocaleString();
+invoiceTax.textContent="₡"+impuesto.toLocaleString();
+invoiceTotal.textContent="₡"+total.toLocaleString();
+order.textContent="#"+Math.floor(Math.random()*900000+100000);
+
+const hoy=new Date();
+date.textContent=hoy.toLocaleDateString();
+
+},2500);
 }
 </script>
+
 </body>
 </html>

@@ -17,9 +17,15 @@ font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
 body{
 background: radial-gradient(circle at top, #1c1c1e, #0b0b0c 75%);
 color:white;
-height:100vh;
 display:flex;
+min-height:100dvh;
 overflow:hidden;
+}
+html, body{
+    height: 100%;
+}
+body.menu-open{
+    overflow:hidden
 }
 
 /* MAIN */
@@ -27,6 +33,7 @@ overflow:hidden;
 flex:1;
 display:flex;
 flex-direction:column;
+height: 100%;
 }
 
 /* HEADER */
@@ -55,11 +62,11 @@ cursor:pointer;
 .chat{
 flex:1;
 overflow-y:auto;
-padding:20px;
+padding:15px;
 display:flex;
 flex-direction:column;
-gap:14px;
-scroll-behavior:smooth;
+gap:12px;
+scroll-behavior:smooth; /* Mantiene scroll suave */
 }
 
 /* MENSAJES */
@@ -88,10 +95,35 @@ box-shadow:0 6px 20px rgba(34,197,94,0.3);
 .input-area{
 display:flex;
 gap:10px;
-padding:15px;
+padding:10px 12px;
 background:rgba(0,0,0,0.6);
 backdrop-filter:blur(25px);
 border-top:1px solid rgba(255,255,255,0.05);
+position:sticky; /* Mantiene el input fijo abajo */
+z-index:50;
+bottom: 0;
+}
+.input-area input{
+flex:1;
+padding:12px;
+border-radius:20px;
+border:none;
+background:rgba(255,255,255,0.07);
+color:white;
+outline:none;
+}
+.input-area button{
+padding:0 16px;
+border:none;
+border-radius:20px;
+background:linear-gradient(135deg,#22c55e,#16a34a);
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:.2s;
+}
+.input-area button:hover{
+    transform:scale(1.05);
 }
 
 input{
@@ -156,24 +188,113 @@ text-align:left;
 background:rgba(34,197,94,0.2);
 color:white;
 }
-
-/* OCULTAR SIDEBAR EN MÓVIL */
-@media(max-width:768px){
-.sidebar{
-position:fixed;
-right:-260px;
-top:0;
-height:100%;
-z-index:10;
-}
-
-.sidebar.active{
-right:0;
-}
-
 .menu-btn{
-display:block;
+display:none;
+font-size: 22px;
+cursor: pointer;
 }
+/* OCULTAR SIDEBAR EN MÓVIL */
+/* RESPONSIVE CELULAR */
+@media(max-width:768px){
+.menu-btn{
+    display: block;
+}
+
+/* HEADER */
+header{
+flex-direction:row;
+justify-content: space-between;
+align-items:center;
+padding:12px 16px;
+width: 100%;
+}
+
+/* MAIN se adapta al ancho completo */
+.main{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+/* CHAT */
+.chat{
+padding:10px;
+gap:10px;
+flex:1;
+overflow-y:auto;
+}
+
+.msg{
+max-width:90%;
+font-size:14px;
+padding:12px 16px;
+}
+
+/* INPUT */
+.input-area{
+flex-direction:row;
+gap:8px;
+padding:10px;
+position:sticky;
+bottom:0;
+width:100%;
+background:rgba(0,0,0,0.65);
+backdrop-filter:blur(20px);
+z-index:50;
+}
+
+.input-area input{
+    font-size: 14px;
+    padding: 12px;
+}
+.input-area button{
+    font-size: 14px;
+    padding: 0 14px
+}
+/* SIDEBAR MOBILE FIX */
+@media(max-width:768px){
+
+.sidebar{
+position: fixed;
+top: 0;
+right: -260px;
+height: 100%;
+width: 240px;
+
+padding:20px;
+
+background: rgba(15, 15, 15, 0.95);
+backdrop-filter: blur(30px);
+
+display:flex;
+flex-direction: column;
+gap:12px;
+
+transition: .3s ease;
+z-index: 200;
+}
+
+/* 🔥 CORREGIDO (antes estaba mal escrito) */
+.sidebar.show{
+right: 0;
+}
+
+} }
+
+.sidebar h2{
+    font-size: 16px;
+}
+.sidebar a, .sidebar button{
+padding:12px;
+border-radius:12px;
+font-size:15px;
+transition:.2s;
+}
+
+.sidebar a:active,
+.sidebar button:active{
+transform:scale(0.96);
+background:rgba(34,197,94,0.2);
 }
 
 /* ANIM */
@@ -190,7 +311,7 @@ to{opacity:1;}
 
 <header>
 <h3>CRFit IA</h3>
-<span class="menu-btn" onclick="toggleMenu()">☰</span>
+<span class="menu-btn" onclick="toggleMenu(event)">☰</span>
 </header>
 
 <div class="chat" id="chat"></div>
@@ -268,7 +389,13 @@ const div = document.createElement("div");
 div.className = "msg " + type;
 div.innerHTML = text;
 chat.appendChild(div);
-chat.scrollTop = chat.scrollHeight;
+
+/* 🔥 SOLO SCROLL SI YA ESTÁ ABAJO */
+const isNearBottom = chat.scrollHeight - chat.scrollTop <= chat.clientHeight + 50;
+
+if(isNearBottom){
+   chat.scrollTop = chat.scrollHeight;
+}
 
 if(save && currentChat){
 currentChat.messages.push({text,type});
@@ -276,29 +403,36 @@ saveChats();
 }
 }
 
+
 /* ANIMACIÓN ESCRIBIR */
+
 function typeMessage(text){
 const div = document.createElement("div");
 div.className="msg bot";
 chat.appendChild(div);
 
-let words = text.split(" ");
-let i=0;
+let words = text.split(" "), i=0;
 
 let interval = setInterval(()=>{
 div.innerHTML += words[i] + " ";
+
+const isNearBottom = chat.scrollHeight - chat.scrollTop <= chat.clientHeight + 50;
+
+if(isNearBottom){
 chat.scrollTop = chat.scrollHeight;
+}
+
 i++;
-
 if(i>=words.length) clearInterval(interval);
-
 },40);
 
 if(currentChat){
-currentChat.messages.push({text, type:"bot"});
+currentChat.messages.push({text,type:"bot"});
 saveChats();
 }
 }
+
+
 
 /* =========================
   🚀 ENVIAR
@@ -346,7 +480,7 @@ if(t.includes("hola")){
 return typeMessage(` Hola ${nombre}, ¿qué quieres entrenar hoy?`);
 }
 if(t.includes("Holaa")){
-return typeMessage("Holaa en que te ayudo??");
+return typeMessage("Holaa en que te ayudo?? 😊");
 }
 if(t.includes("ondaa")){
 return typeMessage("Que ondaaaaaa ");
@@ -435,6 +569,17 @@ return typeMessage("Comer saludable no tiene que ser complicado. Te dejo ideas �
 if(t.includes("gracias")){
 return typeMessage(" Con gusto, te puedo ayudar en otra cosa?");
 }
+if(t.includes("keyla")){
+return typeMessage(" Que es una sapa y cae mal 🙄");
+}
+
+if(t.includes("siento mal")){
+return typeMessage(" Y porque te sientes mal? 🥺");
+}
+
+
+
+
 
 
 /* DEFAULT */
@@ -481,6 +626,28 @@ typeMessage(` Bienvenido de nuevo ${memory.name}!!`);
 }else{
 typeMessage("🔥 Bienvenido a CRFit IA");
 }
+// MENU HAMBURGUESA
+const sidebar = document.getElementById("sidebar");
+const menuBtn = document.querySelector(".menu-btn");
+
+function toggleMenu(e){
+    e.stopPropagation();
+sidebar.classList.toggle("show");
+document.body.classList.toggle("menu-open")
+}
+
+// Cerrar menu al hacer clic fuera del sidebar
+document.addEventListener("click", (e)=>{
+if(window.innerWidth <= 768){
+if(
+!sidebar.contains(e.target) &&
+!e.target.closest(".menu-btn")
+){
+    sidebar.classList.remove("show");
+document.body.classList.remove("menu-open");
+}
+}
+});
 </script>
 
 </body>
